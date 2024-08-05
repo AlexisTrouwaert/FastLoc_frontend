@@ -59,6 +59,13 @@
     font-size: 15px;
 }
 
+.btnsCmd:hover {
+    cursor: pointer;
+    background: #e0e0e0;
+    box-shadow: inset 10px 10px 5px #d7d7d7,
+                inset -10px -10px 5px #fdfdfd;
+}
+
 .btns:hover{
     cursor: pointer;
     background: #e0e0e0;

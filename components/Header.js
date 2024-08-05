@@ -12,9 +12,23 @@ export default function Header() {
     const dispatch = useDispatch()
 
     const user = useSelector((state) => state.users.value)
+    const usernamePersist = user.name
+    const tokenPersist = user.token
 
+    
     //Etat qui gere le header
     const [connect, setConnect] = useState(false)
+
+    //connexion à l'arriver sur le site prise en charge de la connexion persistante
+    useEffect(() => {
+        fetch(`http://localhost:3000/users/connexion/${usernamePersist}/${tokenPersist}`)
+        .then(response => response.json())
+        .then(data => {
+            if(data.result){
+                setConnect(!connect)
+            }
+        })
+      }, []);
 
     //Etat qui gere la modal
     const [show, setShow] = useState(false)
