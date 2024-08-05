@@ -1,0 +1,16 @@
+.all{
+    height: 10vh;
+    width: 100vw;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.header{
+    height: 6vh;
+    width: 98vw;
+    border-radius: 15px;
+    background: #F6F6F6;
+    box-shadow:  13px 13px 26px #cacaca,
+             -13px -13px 26px #ffffff;
+}
