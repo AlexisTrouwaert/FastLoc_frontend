@@ -1,3 +1,9 @@
+@font-face {
+    font-family: "Helvetica-Bold";   /*Can be any text*/
+    src: local("Helvetica-Bold"),
+      url("../src/fonts/Helvetica-Bold.ttf") format("truetype");
+  }
+
 .all{
     height: 10vh;
     width: 100vw;
@@ -11,6 +17,140 @@
     width: 98vw;
     border-radius: 15px;
     background: #F6F6F6;
-    box-shadow:  13px 13px 26px #cacaca,
-             -13px -13px 26px #ffffff;
+    box-shadow:  13px 13px 10px #cacaca,
+                -13px -13px 10px #ffffff;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
 }
+
+.logo{
+    height: 7vh;
+    margin-left: 30px;
+}
+
+.logo:hover{
+    cursor: pointer;
+}
+
+.btns{
+    height: 4.5vh;
+    width: 7vw;
+    margin-right: 30px;
+    background: none;
+    border-style: none;
+    border-radius: 15px;
+    box-shadow: -5px -5px 3px #cbced1,
+                5px 5px 5px #fff;
+    font-family: Helvetica-Bold;
+    font-size: 15px;
+}
+
+.btns:hover{
+    cursor: pointer;
+    background: #e0e0e0;
+    box-shadow: inset 10px 10px 5px #d7d7d7,
+                inset -10px -10px 5px #fdfdfd;
+}
+
+.btnIns{
+    height: 4.5vh;
+    width: 7vw;
+    margin-right: 30px;
+    background: none;
+    border-style: none;
+    background-color: #FEBD59;
+    border-radius: 15px;
+    color: white;
+    font-family: Helvetica-Bold;
+    font-size: 15px;
+}
+
+.btnIns:hover{
+    cursor: pointer;
+    color: black;
+    background: none;
+    border: 1px solid #FEBD59;
+}
+
+.modaleAll{
+    border-style: none;
+    border-radius: 15px;
+    background: #F6F6F6;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+}
+.inputs{
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+    margin-bottom: 30px;
+}
+
+.inputUnit{
+    width: 15vw;
+    margin: 15px;
+    border-style: none;
+    background: none;
+    height: 4vh;
+    border-radius: 15px;
+    background: #ffffff;
+    box-shadow: inset 10px 10px 25px #d7d7d7,
+                inset -10px -10px 5px #fdfdfd; 
+}
+
+.modaleHeader{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border-bottom: 1px solid #FEBD59;
+    width: 85%;
+    height: 7vh;
+    margin-bottom: 30px;
+}
+
+.btnLogs{
+    width: 15vw;
+    border-style: none;
+    background: none;
+    background-color: #FEBD59;
+    border-radius: 15px;
+    height: 4vh;
+    margin: 15px;
+}
+
+.divBtnLogs{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.p{
+    font-family: Helvetica-Bold;
+    margin: 0%;
+    font-size: 25px;
+}
+
+/* Bouton appuyé : 
+    background: #e0e0e0;
+    box-shadow: inset 10px 10px 5px #d7d7d7,
+                inset -10px -10px 5px #fdfdfd; 
+                
+Bouton en relief : 
+    background: none;
+    border-style: none;
+    box-shadow: -5px -5px 3px #cbced1,
+                5px 5px 5px #fff;
+
+Tuiles : 
+background: #F6F6F6;
+    box-shadow:  13px 13px 10px #cacaca,
+                -13px -13px 10px #ffffff;
+
+*/

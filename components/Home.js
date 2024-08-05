@@ -4,7 +4,9 @@ import Header from './Header'
 function Home() {
   return (
     <div className={styles.all}>
-      <Header/>
+      <div className={styles.header}>
+        <Header/>
+      </div>
     </div>
   );
 }
