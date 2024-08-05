@@ -1,10 +1,12 @@
 import styles from '../styles/Map.module.css'
 import 'leaflet/dist/leaflet.css';
-import React, {useState, useEffect} from 'react';
+import React, {useState} from 'react';
 import dynamic from 'next/dynamic';
 import Slider from '@mui/material/Slider';
 import { styled } from '@mui/material/styles';
 import MuiInput from '@mui/material/Input';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
 
 const Input = styled(MuiInput)`
   width: 42px;
@@ -43,6 +45,9 @@ export default function Map() {
         <div>
             <div className={styles.divSearch}>
                 <input type='text' placeholder='Recherchez un outils' className={styles.search}/>
+                <button className={styles.btnSearch}>
+                    <FontAwesomeIcon icon={faMagnifyingGlass} />
+                </button>
             </div>
         <div className={styles.all}>
             <div className={styles.allMap}>
