@@ -7,9 +7,11 @@ import { useState, useEffect } from 'react';
 import { GoogleLogin } from '@react-oauth/google';
 import { jwtDecode } from "jwt-decode";
 import { LogIn, LogOut } from '../reducers/users'
+import { useRouter } from 'next/router'
 
 export default function Header() {
     const dispatch = useDispatch()
+    const router = useRouter()
 
     const user = useSelector((state) => state.users.value)
     const usernamePersist = user.name
@@ -193,6 +195,22 @@ export default function Header() {
     let modale;
     let btns;
 
+    const handleMessages = () => {
+        router.push('/messages')
+    }
+
+    const handleOrder = () => {
+        router.push('/orders')
+    }
+
+    const handleProfil = () => {
+        router.push('/profil')
+    }
+
+    const handleMain = () => {
+        router.push('/')
+    }
+
     //change le header en fonction de si l'utilisateur est connecter ou non
     if(!connect){
         btns = (
@@ -204,9 +222,9 @@ export default function Header() {
     } else {
         btns = (
             <div>
-                <button className={styles.btnsCmd} >MES COMMANDES</button>
-                <button className={styles.btns} >MESSAGES</button>
-                <button className={styles.btnIns} >MON PROFIL</button>
+                <button className={styles.btnsCmd} onClick={() => handleOrder()}>MES COMMANDES</button>
+                <button className={styles.btns} onClick={() => handleMessages()}>MESSAGES</button>
+                <button className={styles.btnIns} onClick={() => handleProfil()}>MON PROFIL</button>
                 <button className={styles.btns} onClick={() => handleLogOut()}>DECONNEXION</button>
             </div>
         )
@@ -218,7 +236,7 @@ export default function Header() {
             {modale}
             <div className={styles.header}>
                 <div>
-                    <img src='logo.png' alt='logo FastLoc' className={styles.logo}/>
+                    <img src='logo.png' alt='logo FastLoc' className={styles.logo} onClick={() => handleMain()}/>
                 </div>
                 {btns}
             </div>
