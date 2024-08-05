@@ -179,6 +179,7 @@ export default function Header() {
     let modale;
     let btns;
 
+    //change le header en fonction de si l'utilisateur est connecter ou non
     if(!connect){
         btns = (
             <div>
