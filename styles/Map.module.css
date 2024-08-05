@@ -78,9 +78,11 @@
     border-bottom-left-radius: 15px;
     border-style: none;
     background: none;
-    background: #e0e0e0;
-    box-shadow: inset 10px 10px 25px #d7d7d7,
-                inset -10px -10px 15px #fdfdfd;
+    background: #e5e5e5;
+    box-shadow: inset 15px 15px 10px #d7d7d7,
+                inset -15px -15px 10px #fdfdfd;
+    font-family: Helvetica-Bold;
+    padding-left: 30px;
 }
 
 .btnSearch{
