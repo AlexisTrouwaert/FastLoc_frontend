@@ -46,6 +46,19 @@
     font-size: 15px;
 }
 
+.btnsCmd{
+    height: 4.5vh;
+    width: 9vw;
+    margin-right: 30px;
+    background: none;
+    border-style: none;
+    border-radius: 15px;
+    box-shadow: -5px -5px 3px #cbced1,
+                5px 5px 5px #fff;
+    font-family: Helvetica-Bold;
+    font-size: 15px;
+}
+
 .btns:hover{
     cursor: pointer;
     background: #e0e0e0;
@@ -135,6 +148,10 @@
     font-family: Helvetica-Bold;
     margin: 0%;
     font-size: 25px;
+}
+
+.error{
+    color: red;
 }
 
 /* Bouton appuyé : 
