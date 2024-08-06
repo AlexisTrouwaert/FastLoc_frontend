@@ -1,6 +1,6 @@
 import styles from '../styles/Map.module.css'
 import 'leaflet/dist/leaflet.css';
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import dynamic from 'next/dynamic';
 import Slider from '@mui/material/Slider';
 import { styled } from '@mui/material/styles';
@@ -37,10 +37,32 @@ export default function Map() {
     const TileLayer = dynamic(() => import('react-leaflet').then(mod => mod.TileLayer), { ssr: false });
     const Circle = dynamic(() => import('react-leaflet').then(mod => mod.Circle), { ssr: false });
     const Popup = dynamic(() => import('react-leaflet').then(mod => mod.Popup), { ssr: false });
+    const useMap = dynamic(() => import('react-leaflet').then(mod => mod.Map), { ssr: false });
 
-    const center = [48.8566, 2.3522]
     const radius = value * 1000;
 
+    const [position, setPosition] = useState({ latitude: 50.8566, longitude: 22.3522 });
+
+    useEffect(() => {
+        if ("geolocation" in navigator) {
+        navigator.geolocation.getCurrentPosition(function (position) {
+            setPosition({
+            latitude: position.coords.latitude,
+            longitude: position.coords.longitude,
+            });
+        });
+        console.log(position)
+        } else {
+        console.log("Geolocation is not available in your browser.");
+        }
+    }, []);
+
+    // const center = [position.latitude, position.longitude]
+
+    const map = useMap();
+    map.setView(center, zoom)
+
+    
     return (
         <div>
             <div className={styles.divSearch}>
@@ -51,9 +73,9 @@ export default function Map() {
             </div>
         <div className={styles.all}>
             <div className={styles.allMap}>
-                <MapContainer center={center} zoom={10} className={styles.map}>
+                <MapContainer center={center} zoom={10} className={styles.map} >
                     <TileLayer
-                        url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                        url="https://tiles.stadiamaps.com/tiles/stamen_toner_lite/{z}/{x}/{y}{r}.png"
                         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
                     />
                     <Circle center={center} radius={radius}>

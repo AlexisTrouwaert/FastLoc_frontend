@@ -1,10 +1,16 @@
 import Header from './Header'
 import styles from '../styles/Confirmation.module.css'
+import { useRouter } from 'next/router'
 
 export default function Confirmation() {
+    const router = useRouter()
 
     const handleMain = () => {
-        window.location.href = "http://localhost:3001"
+        router.push('/')
+    }
+
+    const handleMess = () => {
+        router.push('/messages')
     }
 
     return(
@@ -29,7 +35,7 @@ export default function Confirmation() {
                         <p>
                             Vous pouvez contacter l'utilisateur ci-dessous
                         </p>
-                        <button>Messages</button>
+                        <button onClick={() => handleMess()}>Messages</button>
                         <p>
                             Ou retourner sur le site principal
                         </p>
