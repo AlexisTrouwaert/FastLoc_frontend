@@ -21,25 +21,25 @@ export default function Confirmation() {
             <div className={styles.content}>
                 <div className={styles.tile}>
                     <div className={styles.title}>
-                        <p>Confirmation</p>
+                        <p className={styles.pTitle}>Confirmation</p>
                     </div>
-                    <div>
-                        <p>
+                    <div className={styles.divText}>
+                        <p className={styles.pText}>
                             Le paiement à bien été pris en compte.
                         </p>
-                        <p>
-                            il sera effectif qu'un fois l'échange d'outil effectué
+                        <p className={styles.pText}>
+                            il sera effectif qu'une fois l'échange d'outil effectué
                         </p>
                     </div>
-                    <div>
-                        <p>
+                    <div className={styles.divBtn}>
+                        <p className={styles.pText}>
                             Vous pouvez contacter l'utilisateur ci-dessous
                         </p>
-                        <button onClick={() => handleMess()}>Messages</button>
-                        <p>
+                        <button onClick={() => handleMess()} className={styles.btnMess}>Messages</button>
+                        <p className={styles.pText}>
                             Ou retourner sur le site principal
                         </p>
-                        <button onClick={() => handleMain()}>Page principale</button>
+                        <button onClick={() => handleMain()} className={styles.btnMain}>Page principale</button>
                     </div>
                 </div>
             </div>
