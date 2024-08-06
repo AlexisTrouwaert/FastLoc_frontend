@@ -37,11 +37,10 @@ export default function Map() {
     const TileLayer = dynamic(() => import('react-leaflet').then(mod => mod.TileLayer), { ssr: false });
     const Circle = dynamic(() => import('react-leaflet').then(mod => mod.Circle), { ssr: false });
     const Popup = dynamic(() => import('react-leaflet').then(mod => mod.Popup), { ssr: false });
-    const useMap = dynamic(() => import('react-leaflet').then(mod => mod.Map), { ssr: false });
 
     const radius = value * 1000;
 
-    const [position, setPosition] = useState({ latitude: 50.8566, longitude: 22.3522 });
+    const [position, setPosition] = useState({ latitude: 50.8566, longitude: 132.3522 });
 
     useEffect(() => {
         if ("geolocation" in navigator) {
@@ -57,17 +56,21 @@ export default function Map() {
         }
     }, []);
 
-    // const center = [position.latitude, position.longitude]
+    const center = [position.latitude, position.longitude]
 
-    const map = useMap();
-    map.setView(center, zoom)
+    const handleSearch = () => {
+        router.push('/search')
+    }
 
     
     return (
         <div>
             <div className={styles.divSearch}>
                 <input type='text' placeholder='Recherchez un outils' className={styles.search}/>
-                <button className={styles.btnSearch}>
+                <button 
+                    className={styles.btnSearch}
+                    onClick={() => handleSearch()}
+                >
                     <FontAwesomeIcon icon={faMagnifyingGlass} />
                 </button>
             </div>

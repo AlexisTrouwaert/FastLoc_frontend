@@ -41,12 +41,14 @@ export default function Header() {
     const handleCloseConnexion = () => {
         setShow(!show);
         setConnexion(!connexion)
+        setError('')
     }
 
     //close la modal et remet les etat a false
     const handleCloseInscription = () => {
         setShow(!show);
         setInscription(!inscription)
+        setError('')
     }
 
     //met l'etat connection à true pour afficher la modal qui correspond
@@ -135,8 +137,9 @@ export default function Header() {
         .then(response => response.json())
         .then(data => {
             if(data.result){
-                dispatch(LogIn({name :data.newuserInfos.username, email: data.newuserInfos.email, token : data.newuserInfos.token}))
-                setShow(!show)
+                console.log(data.token)
+                // dispatch(LogIn({name :data.username, email: data.newuserInfos.email, token : data.token}))
+                // setShow(!show)
             } else {
                 setError(data.error)
             }
