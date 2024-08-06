@@ -31,6 +31,10 @@
   position: fixed;
 }
 
+.test{
+  font-size: 500px;
+}
+
 /* .map{
   padding-top: 25vh;
   margin-left: 30px;

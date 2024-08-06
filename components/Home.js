@@ -3,6 +3,7 @@ import Header from './Header'
 import Map from './Map'
 
 function Home() {
+
   return (
     <div className={styles.all}>
       <div className={styles.header}>

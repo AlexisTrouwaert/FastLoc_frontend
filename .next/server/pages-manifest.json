@@ -2,7 +2,5 @@
   "/_app": "pages/_app.js",
   "/_error": "pages/_error.js",
   "/_document": "pages/_document.js",
-  "/": "pages/index.js",
-  "/messages": "pages/messages.js",
-  "/profil": "pages/profil.js"
+  "/": "pages/index.js"
 }
