@@ -78,7 +78,7 @@ export default function Map() {
             </div>
         <div className={styles.all}>
             <div className={styles.allMap}>
-                <MapContainer center={center} zoom={10} className={styles.map} >
+                <MapContainer center={center} zoom={11} className={styles.map} >
                     <TileLayer
                         url="https://tiles.stadiamaps.com/tiles/stamen_toner_lite/{z}/{x}/{y}{r}.png"
                         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
@@ -98,10 +98,10 @@ export default function Map() {
                         aria-labelledby="input-slider"
                         valueLabelDisplay="auto"
                         shiftStep={30}
-                        step={5}
+                        step={1}
                         marks
-                        min={5}
-                        max={50}
+                        min={1}
+                        max={20}
                         color='warning'
                     />
                     <Input
