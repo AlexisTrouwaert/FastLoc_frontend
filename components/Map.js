@@ -7,14 +7,14 @@ import { styled } from '@mui/material/styles';
 import MuiInput from '@mui/material/Input';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
-import router from '../../backend/routes/users';
+import { useRouter } from 'next/router'
 
 const Input = styled(MuiInput)`
   width: 42px;
 `;
 
 export default function Map() {
-    const router = router()
+    const router = useRouter()
 
     const [value, setValue] = useState(10);
 
