@@ -104,6 +104,7 @@ export default function Header() {
 
     const [error, setError] = useState('')
     const [errorMail, setErrorMail] = useState ('')
+
     //Inscription
     const handleSignUp = () => {
         if(email.match(regex)){
@@ -118,6 +119,7 @@ export default function Header() {
                     dispatch(LogIn({name :data.newuserInfos.username, email: data.newuserInfos.email, token : data.newuserInfos.token}))
                     setShow(!show)
                     setConnect(!connect)
+                    setInscription(!inscription)
                 } else {
                     setError(data.error)
                 }
@@ -137,9 +139,10 @@ export default function Header() {
         .then(response => response.json())
         .then(data => {
             if(data.result){
-                console.log(data.token)
-                // dispatch(LogIn({name :data.username, email: data.newuserInfos.email, token : data.token}))
-                // setShow(!show)
+                dispatch(LogIn({name :data.username, email: data.email, token : data.token}))
+                setShow(!show)
+                setConnexion(!connexion)
+                setConnect(!connect)
             } else {
                 setError(data.error)
             }
