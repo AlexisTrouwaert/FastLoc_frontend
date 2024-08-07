@@ -89,17 +89,16 @@ export default function Header() {
             console.log(credential)  
             decoded = jwtDecode(credential)
             console.log('decoded', decoded)
-            setVerifMail(decoded.email_verified)
-            setDecod(decoded)
             setShow(!show)
-            console.log('decod', decod)
+            setVerifMail(decoded.email_verified)
             fetch('http://localhost:3000/users/signup', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({username : decoded.name, email : decoded.email, password : decoded.sub})
+                body: JSON.stringify({username : decoded.name, email : decoded.email, password : 'eyJhbGciOiJSUzI1NiIsImtpZCI6IjQ1MjljNDA5Zjc3YTEwNmZiNjdlZTFhODVkMTY4ZmQyY2ZiN2MwYjciLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL2FjY291bnRzLmdvb2dsZS5jb20iLCJhenAiOiIxMDQ2Nzg0NjU1MDA0LXE1ZWV0N2twbjVvdDRwYW1lbnZ0MWpkdTV1OXNkdnNlLmFwcHMuZ29vZ2xldXNlcmNvbnRlbnQuY29tIiwiYXVkIjoiMTA0Njc4NDY1NTAwNC1xNWVldDdrcG41b3Q0cGFtZW52dDFqZHU1dTlzZHZzZS5hcHBzLmdvb2dsZXVzZXJjb250ZW50LmNvbSIsInN1YiI6IjEwOTM5MTk0NjE5NTA1MDYyMDI5NyIsImVtYWlsIjoiYWxleGlzLnRyb3V3YWVydEBnbWFpbC5jb20iLCJlbWFpbF92ZXJpZmllZCI6dHJ1ZSwibmJmIjoxNzIzMDE4MTA2LCJuYW1lIjoiQWxleGlzIFRyb3V3YWVydCIsInBpY3R1cmUiOiJodHRwczovL2xoMy5nb29nbGV1c2VyY29udGVudC5jb20vYS9BQ2c4b2NLM1Y0emRla0JhaE9tRkRUUEoyekZNWG01aDEzVFd4VG44Y2xKUXlkQlZnTnRycHc9czk2LWMiLCJnaXZlbl9uYW1lIjoiQWxleGlzIiwiZmFtaWx5X25hbWUiOiJUcm91d2FlcnQiLCJpYXQiOjE3MjMwMTg0MDYsImV4cCI6MTcyMzAyMjAwNiwianRpIjoiMDlmYjNlZWE5ZTY2MWYyOWEwZmZhMzM0Njg3ZjEwYjYwODQ0ODdhYSJ9.dF537BvACTfFlcGfUnc1MkRseNrMYcQY9feE-cmvCTjO31xL9tn1vjKzYSKtqL6Ts2lcL8EPWNc6Dm1PX4R5AMrn_Qw_xJUajjIRprSwtVXix5Q2iXF3II4UA9Eo_TJJBVORx4s_Zl702eD7wvpU2-gPMx2ApLWFX1lHiV4zZyOnIMMZk-dwKH0k-mmlS7al2WG28FB7sKOdCLVHnxy4VkooHeMPf9jgvu2Ak0Q6W3febFaBdPoBCP-f2gbBV948BhQkKZl7qfwJEURbetyoz1iHoPtxfCIK9ly0wCnwqNtj9NSK_Tb51Z_m1aQ1ewBsiAEWmK31QbBaFGAU07g1mg'})
             })
             .then(response => response.json())
             .then(data => {
+                console.log(data)
                 if(data.result){
                     dispatch(LogIn({name :data.newuserInfos.username, email: data.newuserInfos.email, token : data.newuserInfos.token}))
                     setShow(!show)
@@ -110,14 +109,15 @@ export default function Header() {
                     fetch('http://localhost:3000/users/signin', {
                         method: 'POST',
                         headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify({username : decod.name, password : decod.sub})
+                        body: JSON.stringify({username : decoded.name, password : 'eyJhbGciOiJSUzI1NiIsImtpZCI6IjQ1MjljNDA5Zjc3YTEwNmZiNjdlZTFhODVkMTY4ZmQyY2ZiN2MwYjciLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL2FjY291bnRzLmdvb2dsZS5jb20iLCJhenAiOiIxMDQ2Nzg0NjU1MDA0LXE1ZWV0N2twbjVvdDRwYW1lbnZ0MWpkdTV1OXNkdnNlLmFwcHMuZ29vZ2xldXNlcmNvbnRlbnQuY29tIiwiYXVkIjoiMTA0Njc4NDY1NTAwNC1xNWVldDdrcG41b3Q0cGFtZW52dDFqZHU1dTlzZHZzZS5hcHBzLmdvb2dsZXVzZXJjb250ZW50LmNvbSIsInN1YiI6IjEwOTM5MTk0NjE5NTA1MDYyMDI5NyIsImVtYWlsIjoiYWxleGlzLnRyb3V3YWVydEBnbWFpbC5jb20iLCJlbWFpbF92ZXJpZmllZCI6dHJ1ZSwibmJmIjoxNzIzMDE4MTA2LCJuYW1lIjoiQWxleGlzIFRyb3V3YWVydCIsInBpY3R1cmUiOiJodHRwczovL2xoMy5nb29nbGV1c2VyY29udGVudC5jb20vYS9BQ2c4b2NLM1Y0emRla0JhaE9tRkRUUEoyekZNWG01aDEzVFd4VG44Y2xKUXlkQlZnTnRycHc9czk2LWMiLCJnaXZlbl9uYW1lIjoiQWxleGlzIiwiZmFtaWx5X25hbWUiOiJUcm91d2FlcnQiLCJpYXQiOjE3MjMwMTg0MDYsImV4cCI6MTcyMzAyMjAwNiwianRpIjoiMDlmYjNlZWE5ZTY2MWYyOWEwZmZhMzM0Njg3ZjEwYjYwODQ0ODdhYSJ9.dF537BvACTfFlcGfUnc1MkRseNrMYcQY9feE-cmvCTjO31xL9tn1vjKzYSKtqL6Ts2lcL8EPWNc6Dm1PX4R5AMrn_Qw_xJUajjIRprSwtVXix5Q2iXF3II4UA9Eo_TJJBVORx4s_Zl702eD7wvpU2-gPMx2ApLWFX1lHiV4zZyOnIMMZk-dwKH0k-mmlS7al2WG28FB7sKOdCLVHnxy4VkooHeMPf9jgvu2Ak0Q6W3febFaBdPoBCP-f2gbBV948BhQkKZl7qfwJEURbetyoz1iHoPtxfCIK9ly0wCnwqNtj9NSK_Tb51Z_m1aQ1ewBsiAEWmK31QbBaFGAU07g1mg'})
                     })
                     .then(response => response.json())
                     .then(data => {
+                        console.log(data)
                         if(data.result){
                             dispatch(LogIn({name :data.username, email: data.email, token : data.token}))
                             setShow(!show)
-                            setConnect(true)
+                            setConnect(!connect)
                             setInscription(false)
                             setConnexion(false)
                         }
