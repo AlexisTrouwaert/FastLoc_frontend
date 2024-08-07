@@ -151,6 +151,7 @@ export default function Header() {
                     setShow(!show)
                     setConnect(!connect)
                     setInscription(!inscription)
+                    console.log(data.newuserInfos)
                 } else {
                     setError(data.error)
                 }
@@ -182,6 +183,7 @@ export default function Header() {
 
     //deconnexion
     const handleLogOut = () => {
+        router.push('/')
         dispatch(LogOut())
         setConnect(!connect)
     }
