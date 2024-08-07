@@ -92,7 +92,38 @@ export default function Header() {
             setVerifMail(decoded.email_verified)
             setDecod(decoded)
             setShow(!show)
-            dispatch(LogIn({name : decoded.name, email: decoded.email, token: null}))
+            console.log('decod', decod)
+            fetch('http://localhost:3000/users/signup', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({username : decoded.name, email : decoded.email, password : decoded.sub})
+            })
+            .then(response => response.json())
+            .then(data => {
+                if(data.result){
+                    dispatch(LogIn({name :data.newuserInfos.username, email: data.newuserInfos.email, token : data.newuserInfos.token}))
+                    setShow(!show)
+                    setConnect(!connect)
+                    setInscription(false)
+                    setConnexion(false)
+                } else {
+                    fetch('http://localhost:3000/users/signin', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({username : decod.name, password : decod.sub})
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        if(data.result){
+                            dispatch(LogIn({name :data.username, email: data.email, token : data.token}))
+                            setShow(!show)
+                            setConnect(true)
+                            setInscription(false)
+                            setConnexion(false)
+                        }
+                    })
+                }
+            })
           }}
           onError={() => {
             console.log('Login Failed');
