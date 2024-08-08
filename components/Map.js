@@ -83,7 +83,7 @@ export default function Map() {
                         url="https://tiles.stadiamaps.com/tiles/stamen_toner_lite/{z}/{x}/{y}{r}.png"
                         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
                     />
-                    <Circle center={center} radius={radius}>
+                    <Circle center={center} radius={radius} fillColor= {"#febc59b1"} color={"#febc59"}>
                     <Popup>
                         <span>Rayon de {radius / 1000} kilomètres</span>
                     </Popup>

@@ -160,3 +160,7 @@
 }
 
 
+.calendar {
+    margin-left: 3vh;
+    display: flex;
+}
