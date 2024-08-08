@@ -32,7 +32,9 @@ export default function Profil() {
         })
     }, [])
     
-    console.log('user Data',datauser)
+    
+
+
     return(
         <div className={styles.all}>
             <div>
