@@ -5,7 +5,7 @@
   }
 
 .all{
-    height: 10vh;
+    height: 100px;
     width: 100vw;
     display: flex;
     align-items: center;
@@ -13,7 +13,7 @@
 }
 
 .header{
-    height: 6vh;
+    height: 70px;
     width: 98vw;
     border-radius: 15px;
     background: #F6F6F6;

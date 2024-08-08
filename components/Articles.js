@@ -5,16 +5,10 @@ import { useState, useEffect } from 'react';
 
 
 export default function Articles() {
-  const [results, setResults] = useState([]);
-  const [listCroissant, setListCroissant] = useState('');
 
 
-  const sortResults = (articles) => {
-    if (listCroissant === 'croissant') {
-        return articles.sort((a, b) => a.price - b.price);
-    } else if (listCroissant === 'decroissant') {
-        return articles.sort((a, b) => b.price - a.price);
-    }
+
+ 
     return articles;
 };
     return(
@@ -32,4 +26,3 @@ export default function Articles() {
             </div>
      
     )
-}

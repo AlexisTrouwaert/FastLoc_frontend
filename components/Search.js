@@ -189,60 +189,70 @@ export default function Search() {
                         <p className={styles.p}>Filtrer par:</p>
                     </div>
                     <div>
-                        <div className={styles.filtre} onClick={() => handleFilterCity()}>
+                        <div className={styles.filtre}>
                             <button className={styles.btnLogo}>
                                 <FontAwesomeIcon icon={faArrowUp} />
                             </button>
                             <p className={styles.p}>Villes</p>
-                        </div>
+                            <input type="text" placeholder="Ville" value={prixFiltre} onChange={(e) => setVilleFiltre(e.target.value)} className={styles.searchFilter} />
+
                         {filters}
+                        </div>
                     </div>
                     <div>
-                        <div className={styles.filtre} onClick={() => handleFilterNote()}>
+                        <div className={styles.filtre} >
                             <button className={styles.btnLogo}>
                                 <FontAwesomeIcon icon={faArrowDown} />
                             </button>
                             <p className={styles.p}>Note</p>
-                        </div>
+                            <input type="select" placeholder="Note" value={noteFiltre} onChange={(e) => setNoteFiltre(e.target.value)} className={styles.searchFilter} />
+
                         {note}
+                        </div>
                     </div>
                     <div>
-                        <div className={styles.filtre} onClick={() => handleFilterDate()}>
+                        <div className={styles.filtre}>
                             <button className={styles.btnLogo}>
                                 <FontAwesomeIcon icon={faCalendarDays} />
                             </button>
                             <p className={styles.p}>Date</p>
-                        </div>
+                            <input type="Date" placeholder="Date" value={dateFiltre} onChange={(e) => setDateFiltre(e.target.value)} className={styles.searchFilter} />
                         {date}
+                        </div>
                     </div>
                     <div>
-                        <div className={styles.filtre} onClick={() => handleFilterPrice()}>
+                        <div className={styles.filtre}>
                             <button className={styles.btnLogo}>
                                 <FontAwesomeIcon icon={faCalendarDays} />
                             </button>
                             <p className={styles.p}>Prix</p>
-                        </div>
+                            <input type="Number" placeholder="Prix" value={prixFiltre} onChange={(e) => setPrixFiltre(e.target.value)} className={styles.searchFilter} />
+
                         {prix}
+                        </div>
                     </div>
                     <div>
-                        <div className={styles.filtre} onClick={() => handleFilterEtat()}>
+                        <div className={styles.filtre}>
                             <button className={styles.btnLogo}>
                                 <FontAwesomeIcon icon={faCalendarDays} />
                             </button>
                             <p className={styles.p}>Etats</p>
-                        </div>
+                            <input type="Etats" placeholder="Etats" value={etatFiltre} onChange={(e) => setEtatFiltre(e.target.value)} className={styles.searchFilter} />
+
                         {etat}
+                        </div>
                     </div>
                 </div>
+               
                 <div className={styles.containerTwo}>
                     <div className={styles.containerArticles}>
                         {sortResults(results).map((article, index) => (
                             <div className={styles.articles} key={index}>
-                                <h3>{article.outil[0].categorie}</h3>
-                                <p>Marque: {article.outil[0].brand}</p>
-                                <p>Modele: {article.outil[0].model}</p>
-                                <p>Prix: {article.price}</p>
-                                <p>Note: {article.note}</p>
+                                <h3 className={styles.p3}>{article.outil[0].categorie}</h3>
+                                <p className={styles.p2}>Marque: {article.outil[0].brand}</p>
+                                <p className={styles.p2}>Modele: {article.outil[0].model}</p>
+                                <p className={styles.p2}>Prix: {article.price}</p>
+                                <p className={styles.p2}>Note: {article.note}</p>
                             </div>
                         ))}
                     </div>
