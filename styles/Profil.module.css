@@ -45,8 +45,10 @@
 
 .Pp{
     height: 6vh;
+    width: 6vh;
     border-radius: 3vh;
     margin-left: 1vw;
+    margin-right: 1vh;
 }
 
 .avisAndSearch{
@@ -117,6 +119,19 @@
     margin-bottom: 15px;
 }
 
+.divAddArticle{
+    height: 38vh;
+    width: 38vh;
+    background: #dedede;
+    box-shadow:  2px 2px 10px #cacaca,
+                -2px -2px 10px #ffffff;
+    border-radius: 15px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
 .innerTool{
     width: 98vw;
     height: 40vh;
@@ -124,6 +139,9 @@
     background: #F6F6F6;
     box-shadow:  2px 2px 10px #cacaca,
                 -2px -2px 10px #ffffff;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
 }
 
 .edit{
@@ -147,4 +165,85 @@
 
 .divNote{
     margin-left: 15px;
+}
+
+.plus{
+    height: 5vh;
+}
+
+.divPlus{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 8vh;
+    width: 8vh;
+    border-radius: 4vh;
+    border: 1px solid #FEBD59;
+    margin-bottom: 15px;
+}
+
+.add{
+    font-family: Helvetica-Bold;
+}
+
+/* modalEdit */
+
+.modaleHeader{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border-bottom: 1px solid #FEBD59;
+    width: 85%;
+    height: 7vh;
+    margin-bottom: 30px;
+}
+
+.modaleAll{
+    border-style: none;
+    border-radius: 15px;
+    background: #F6F6F6;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+}
+
+.inputs{
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+    margin-bottom: 30px;
+}
+
+.inputUnit{
+    width: 15vw;
+    margin: 15px;
+    border-style: none;
+    background: none;
+    height: 4vh;
+    border-radius: 15px;
+    background: #ffffff;
+    box-shadow: inset 10px 10px 25px #d7d7d7,
+                inset -10px -10px 5px #fdfdfd; 
+}
+
+.btnLogs{
+    width: 15vw;
+    border-style: none;
+    background: none;
+    background-color: #FEBD59;
+    border-radius: 15px;
+    height: 4vh;
+    margin: 15px;
+}
+
+.file{
+    display: flex;
+    width: 15vw;
+    border-style: none;
+    background: none;
+    background-color: #FEBD59;
+    border-radius: 15px;
 }
