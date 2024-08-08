@@ -2,5 +2,9 @@
   "/_app": "pages/_app.js",
   "/_error": "pages/_error.js",
   "/_document": "pages/_document.js",
+<<<<<<< HEAD
   "/search": "pages/search.js"
+=======
+  "/profil": "pages/profil.js"
+>>>>>>> f84d90361c047f7c7044f80bdb64aeffce865116
 }
