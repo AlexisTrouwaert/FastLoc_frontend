@@ -55,7 +55,7 @@ export default function Profil() {
                         </div>
                         <div className={styles.divNote}>
                             <div>
-                                <p className={styles.p}>Note loueur :</p>
+                                <p className={styles.p}>Note loueur : 4</p>
                                 <FontAwesomeIcon icon={faStar} color={'#FEBD59'}/>
                                 <FontAwesomeIcon icon={faStar} color={'#FEBD59'}/>
                                 <FontAwesomeIcon icon={faStar} color={'#FEBD59'}/>
@@ -63,7 +63,7 @@ export default function Profil() {
                                 <FontAwesomeIcon icon={faStar} />
                             </div>
                             <div>
-                                <p className={styles.p}>Note locataire :</p>
+                                <p className={styles.p}>Note locataire : 3</p>
                                 <FontAwesomeIcon icon={faStar} color={'#FEBD59'}/>
                                 <FontAwesomeIcon icon={faStar} color={'#FEBD59'}/>
                                 <FontAwesomeIcon icon={faStar} color={'#FEBD59'}/>
