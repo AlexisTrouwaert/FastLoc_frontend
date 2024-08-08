@@ -1,14 +1,20 @@
 import Header from './Header'
 import styles from '../styles/Profil.module.css'
 import Modal from 'react-bootstrap/Modal';
-import { useRouter } from 'next/router'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
+import { faStar } from '@fortawesome/free-solid-svg-icons';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import moment from 'moment'
 
 export default function Profil() {
+
+    const [datauser, setDataUser] = useState([])
+    const [date, setDate] = useState('')
+    const [nom, setNom] = useState('')
+    const [prenom, setprenom] = useState('')
+    const [city, setCity] = useState('')
 
     const userInfo = useSelector((state) => state.users.value)
     const username = userInfo.name
@@ -18,10 +24,15 @@ export default function Profil() {
         fetch(`http://localhost:3000/users/profil/${username}/${token}`)
         .then(response => response.json())
         .then(data => {
-            
+            setDataUser(data)
+            setCity(data.data.addresse.city)
+            setNom(data.data.firstName)
+            setprenom(data.data.name)
+            setDate(data.date)
         })
     }, [])
-
+    
+    console.log('user Data',datauser)
     return(
         <div className={styles.all}>
             <div>
@@ -33,23 +44,31 @@ export default function Profil() {
                         <div className={styles.headerInfos}>
                             <img src='default.png' alt='Photo de profil' className={styles.Pp}/>
                             <div>
-                                <p className={styles.pName}></p>
-                                <p className={styles.pNameF}></p>
+                                <p className={styles.pName}>{nom}</p>
+                                <p className={styles.pNameF}>{prenom}</p>
                             </div>
                         </div>
-                        <div>
-                            <p>Ville : Paris</p>
-                            <p>Membre depuis le : </p>
-                            <p>Temps de réponse moyen : 30min</p>
+                        <div className={styles.middleInfos}>
+                            <p className={styles.p}>Ville : {city}</p>
+                            <p className={styles.p}>Membre depuis le : {date}</p>
+                            <p className={styles.p}>Temps de réponse moyen : 30min</p>
                         </div>
-                        <div>
+                        <div className={styles.divNote}>
                             <div>
-                                <p>Note loueur :</p>
-                                <p>etoiles</p>
+                                <p className={styles.p}>Note loueur :</p>
+                                <FontAwesomeIcon icon={faStar} color={'#FEBD59'}/>
+                                <FontAwesomeIcon icon={faStar} color={'#FEBD59'}/>
+                                <FontAwesomeIcon icon={faStar} color={'#FEBD59'}/>
+                                <FontAwesomeIcon icon={faStar} color={'#FEBD59'}/>
+                                <FontAwesomeIcon icon={faStar} />
                             </div>
                             <div>
-                                <p>Note locataire :</p>
-                                <p>etoiles</p>
+                                <p className={styles.p}>Note locataire :</p>
+                                <FontAwesomeIcon icon={faStar} color={'#FEBD59'}/>
+                                <FontAwesomeIcon icon={faStar} color={'#FEBD59'}/>
+                                <FontAwesomeIcon icon={faStar} color={'#FEBD59'}/>
+                                <FontAwesomeIcon icon={faStar} />
+                                <FontAwesomeIcon icon={faStar} />
                             </div>
                             <button className={styles.edit} onClick={() => handleEdit()}>Éditer mon profil</button>
                         </div>

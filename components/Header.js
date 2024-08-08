@@ -39,11 +39,6 @@ export default function Header() {
     const [inscription, setInscription] = useState(false)
     const [next, setNext] = useState(false)
 
-    //variable stackage data google
-    let mailG;
-    let usernameG;
-    let passwordG;
-
     //close la modal et remet les etat a false
     const handleCloseConnexion = () => {
         setShow(!show);
@@ -97,6 +92,8 @@ export default function Header() {
             setEmail(decoded.email)
             setInsPassword('eyJhbGciOiJSUzI1NiIsImtpZCI6IjQ1MjljNDA5Zjc3YTEwNmZiNjdlZTFhODVkMTY4ZmQyY2ZiN2MwYjciLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL2FjY291bnRzLmdvb2dsZS5jb20iLCJhenAiOiIxMDQ2Nzg0NjU1MDA0LXE1ZWV0N2twbjVvdDRwYW1lbnZ0MWpkdTV1OXNkdnNlLmFwcHMuZ29vZ2xldXNlcmNvbnRlbnQuY29tIiwiYXVkIjoiMTA0Njc4NDY1NTAwNC1xNWVldDdrcG41b3Q0cGFtZW52dDFqZHU1dTlzZHZzZS5hcHBzLmdvb2dsZXVzZXJjb250ZW50LmNvbSIsInN1YiI6IjEwOTM5MTk0NjE5NTA1MDYyMDI5NyIsImVtYWlsIjoiYWxleGlzLnRyb3V3YWVydEBnbWFpbC5jb20iLCJlbWFpbF92ZXJpZmllZCI6dHJ1ZSwibmJmIjoxNzIzMDE4MTA2LCJuYW1lIjoiQWxleGlzIFRyb3V3YWVydCIsInBpY3R1cmUiOiJodHRwczovL2xoMy5nb29nbGV1c2VyY29udGVudC5jb20vYS9BQ2c4b2NLM1Y0emRla0JhaE9tRkRUUEoyekZNWG01aDEzVFd4VG44Y2xKUXlkQlZnTnRycHc9czk2LWMiLCJnaXZlbl9uYW1lIjoiQWxleGlzIiwiZmFtaWx5X25hbWUiOiJUcm91d2FlcnQiLCJpYXQiOjE3MjMwMTg0MDYsImV4cCI6MTcyMzAyMjAwNiwianRpIjoiMDlmYjNlZWE5ZTY2MWYyOWEwZmZhMzM0Njg3ZjEwYjYwODQ0ODdhYSJ9.dF537BvACTfFlcGfUnc1MkRseNrMYcQY9feE-cmvCTjO31xL9tn1vjKzYSKtqL6Ts2lcL8EPWNc6Dm1PX4R5AMrn_Qw_xJUajjIRprSwtVXix5Q2iXF3II4UA9Eo_TJJBVORx4s_Zl702eD7wvpU2-gPMx2ApLWFX1lHiV4zZyOnIMMZk-dwKH0k-mmlS7al2WG28FB7sKOdCLVHnxy4VkooHeMPf9jgvu2Ak0Q6W3febFaBdPoBCP-f2gbBV948BhQkKZl7qfwJEURbetyoz1iHoPtxfCIK9ly0wCnwqNtj9NSK_Tb51Z_m1aQ1ewBsiAEWmK31QbBaFGAU07g1mg')
             setInsUsername(decoded.name)
+            setNom(decoded.family_name)
+            setPrenom(decoded.given_name)
             fetch('http://localhost:3000/users/signin', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
@@ -240,10 +237,10 @@ export default function Header() {
                     <p className={styles.p}>Information supplémentaire</p>
                 </div>
                 <div className={styles.inputs}>
-                    <input type='text' placeholder="Nom" onChange={e => setNom(e.target.value)} className={styles.inputUnit}/>
-                    <input type='text' placeholder="Prenom" onChange={e => setPrenom(e.target.value)} className={styles.inputUnit}/>
-                    <input type='text' placeholder='Adresse' onChange={e => setAdresse(e.target.value)} className={styles.inputUnit}/>
-                    <input type='text' placeholder='Ville' onChange={e => setVille(e.target.value)} className={styles.inputUnit}/>
+                    <input type='text' placeholder="Nom" onChange={e => setNom(e.target.value)} className={styles.inputUnit} value={nom}/>
+                    <input type='text' placeholder="Prenom" onChange={e => setPrenom(e.target.value)} className={styles.inputUnit} value={prenom}/>
+                    <input type='text' placeholder='Adresse' onChange={e => setAdresse(e.target.value)} className={styles.inputUnit} value={adresse}/>
+                    <input type='text' placeholder='Ville' onChange={e => setVille(e.target.value)} className={styles.inputUnit} value={ville}/>
                 </div>
                 <div className={styles.divBtnLogs}>
                     <button onClick={() => handleSignUp()} className={styles.btnLogs}>Suivant</button>

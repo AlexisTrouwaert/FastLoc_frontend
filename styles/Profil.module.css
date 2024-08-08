@@ -20,6 +20,10 @@
     background: #F6F6F6;
     box-shadow:  13px 13px 10px #cacaca,
                 -13px -13px 10px #ffffff;
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    flex-direction: column;
 }
 
 .headerInfos{
@@ -27,6 +31,7 @@
     align-items: center;
     width: 20vw;
     height: 10vh;
+    border-bottom: 1px solid #EBEBEB;
 }
 
 .pName{
@@ -127,4 +132,19 @@
     border-radius: 15px;
     background-color: #63859E;
     color: white;
+    margin-bottom: 15px;
+    margin-top: 15px;
+}
+
+.middleInfos{
+    margin: 0%;
+    margin-left: 15px;
+}
+
+.p{
+    margin: 0%;
+}
+
+.divNote{
+    margin-left: 15px;
 }
