@@ -1,0 +1,28 @@
+
+
+.containerArticles {
+    height: 70vh;
+    width: 73vw;
+    background: #e5e5e5;
+    box-shadow:  13px 13px 10px #cacaca,
+                -13px -13px 10px #ffffff;
+    font-family: Helvetica-Bold;
+    font-size: 1.5vh;
+
+    border-radius: 15px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+
+}
+
+.articles {
+    height: 30vh;
+    width: 20vw;
+    background: #e5e5e5;
+    box-shadow:  13px 13px 10px #cacaca,
+                -13px -13px 10px #ffffff;
+    border-radius: 15px;
+    margin-top: 5vh;
+    font-size: 1.5vh;
+}
