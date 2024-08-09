@@ -11,6 +11,7 @@ import MuiInput from '@mui/material/Input';
 import moment from 'moment'
 import { styled } from '@mui/material/styles';
 import { FormControl, InputLabel, Select, MenuItem, TextField, Box } from '@mui/material';
+import MyArticles from './MyArticles'
 
 const Input = styled(MuiInput)`
   width: 42px;
@@ -37,6 +38,9 @@ export default function Profil() {
     const [etat, setEtat] = useState('')
     const [price, setPrice] = useState(0)
     const [locaduree, setLocaduree] = useState('')
+    const [refresh, setRefresh] = useState(false)
+
+    const [myArticles, setMyArticles] = useState()
 
     const userInfo = useSelector((state) => state.users.value)
     const username = userInfo.name
@@ -53,9 +57,11 @@ export default function Profil() {
                 setDate(data.date)
                 setAdresse(data.data.addresse.adresse)
                 setUrl(data.data.url)
+                setMyArticles([data.data.article])
             })
-    }, [])
+    }, [refresh])
 
+    console.log(myArticles)
     const handleEdit = () => {
         setShow(!show)
         setEdit(!edit)
@@ -134,8 +140,8 @@ export default function Profil() {
         .then(response => response.json())
         .then(data => {
             if(data.result){
-                console.log(data)
                 setAllTools(data.data)
+                setRefresh(!refresh)
             }
         })
     }
@@ -310,7 +316,7 @@ export default function Profil() {
                                 <MenuItem value={'Bon etat'}>
                                     Bon etat
                                 </MenuItem>
-                                <MenuItem value={etat}>
+                                <MenuItem value={'Etat moyen'}>
                                     Etat moyen
                                 </MenuItem>
                             </Select>
@@ -344,7 +350,7 @@ export default function Profil() {
     return (
         <div className={styles.all}>
             {modal}
-            <div>
+            <div className={styles.divHeader}>
                 <Header />
             </div>
             <div className={styles.content}>
@@ -405,6 +411,7 @@ export default function Profil() {
                             </div>
                             <p className={styles.add}>Ajouter un article</p>
                         </div>
+                        <MyArticles outildata={myArticles}/>
                     </div>
                 </div>
             </div>
