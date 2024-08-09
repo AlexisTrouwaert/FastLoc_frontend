@@ -141,7 +141,6 @@ export default function Profil() {
         .then(data => {
             if(data.result){
                 setAllTools(data.data)
-                setRefresh(!refresh)
             }
         })
     }
@@ -220,7 +219,7 @@ export default function Profil() {
                 body : JSON.stringify({
                     username : username,
                     token : token,
-                    urlPhoto : 'default.png',
+                    urlPhoto : 'defaultOutil.jpg',
                     etat : etat,
                     price : price,
                     isAvailable : true,
@@ -232,6 +231,7 @@ export default function Profil() {
                 if (data.result){
                     setShow(!show)
                     setAdd(!add)
+                    setRefresh(!refresh)
                 }
             })
     }

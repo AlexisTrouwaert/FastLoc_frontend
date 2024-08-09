@@ -136,7 +136,7 @@
 
 .innerTool{
     width: 98vw;
-    height: 100vh;
+    height: auto;
     border-radius: 15px;
     background: #F6F6F6;
     box-shadow:  2px 2px 10px #cacaca,
