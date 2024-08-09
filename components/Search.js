@@ -1,32 +1,56 @@
+
 import React, { useState } from 'react';
-import { Container, Box, TextField, Slider, Typography } from '@mui/material';
+import styles from '../styles/Search.module.css';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
-import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import dayjs from 'dayjs';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faMagnifyingGlass, faArrowDown, faArrowUp, faCalendarDays } from '@fortawesome/free-solid-svg-icons';
-import Button from '@mui/material/Button';
-import styles from '../styles/Search.module.css';
 import Header from './Header';
+import Button from '@mui/material/Button';
+import Filtres from './Filtres';
+import Villes from './Villes';
+import SlidePrix from './SlidePrix';
+import DatePickerOk from './DatePickerOk';
+import TrierNote from './TrierNote';
+import EtatOutil from './EtatOutil';
+import { Container, TextField, Slider, Rating, Typography, Select, MenuItem, FormControl, InputLabel } from '@mui/material';
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+import { faMagnifyingGlass, faArrowDown, faArrowUp, faCalendarDays } from '@fortawesome/free-solid-svg-icons';
 
 export default function Search() {
+    const [city, setCity] = useState('');
+    const [radius, setRadius] = useState('');
+    const [rating, setRating] = useState(0);
+    const [toolState, setToolState] = useState('');
     const [departureDate, setDepartureDate] = useState(dayjs());
     const [arrivalDate, setArrivalDate] = useState(dayjs().add(1, 'day'));
-
-    // Recherche par tri
+    const [priceRange, setPriceRange] = useState([0, 1000]);
     const [rechercheArt, setRechercheArt] = useState('');
     const [listCroissant, setListCroissant] = useState('');
     const [results, setResults] = useState([]);
     const [erreur, setErreur] = useState('');
+    //const [activeFilter, setActiveFilter] = useState(false)
 
-    // Recherche par filtre
-    const [villeFiltre, setVilleFiltre] = useState('');
-    const [noteFiltre, setNoteFiltre] = useState('');
-    const [dateFiltre, setDateFiltre] = useState('');
-    const [prixFiltre, setPrixFiltre] = useState('');
-    const [etatFiltre, setEtatFiltre] = useState('');
-    const [priceRange, setPriceRange] = useState([0, 1000]);
+
+    //const handleFilterClick = (filter) => { setActiveFilter(prevFilter => (prevFilter === filter ? '' : filter)); };
+
+
+
+    const handleCityChange = (event) => {
+        setCity(event.target.value);
+    };
+
+    const handleRadiusChange = (event) => {
+        setRadius(event.target.value);
+    };
+
+    const handleRatingChange = (event, newValue) => {
+        setRating(newValue);
+    };
+
+    const handleToolStateChange = (event) => {
+        setToolState(event.target.value);
+    };
 
     const handleSliderChange = (event, newValue) => {
         setPriceRange(newValue);
@@ -83,22 +107,10 @@ export default function Search() {
         return articles;
     };
 
-    const Filters = (articles) => {
-        return articles.filter(article => {
-            return (
-                (!villeFiltre || article.outil[0].ville.includes(villeFiltre)) &&
-                (!noteFiltre || article.note === (noteFiltre)) &&
-                (!dateFiltre || article.date === dateFiltre) &&
-                (!prixFiltre || article.price === (prixFiltre)) &&
-                (!etatFiltre || article.etat.includes(etatFiltre))
-            );
-        });
-    };
-
     return (
         <div>
             <div className={styles.header}>
-                <Header />
+            <Header />
             </div>
             <div className={styles.container}>
                 <div className={styles.divSearch}>
@@ -110,126 +122,75 @@ export default function Search() {
                     />
                     <button
                         className={styles.btnSearch}
-                        onClick={handleSearch}
+                        onClick={() => handleSearch()}
                     >
                         <FontAwesomeIcon icon={faMagnifyingGlass} />
                     </button>
-                    <select value={listCroissant} onChange={(e) => setListCroissant(e.target.value)}>
-                        <option value="">Sélectionner le tri</option>
-                        <option value="croissant">Prix Croissant</option>
-                        <option value="decroissant">Prix Décroissant</option>
-                    </select>
+
                     {erreur && <p>{erreur}</p>}
                 </div>
-                <div className={styles.divFiltre}>
-                    <div className={styles.filtre}>
-                        <p className={styles.p}>Filtrer par:</p>
-                    </div>
-                    <div className={styles.filtre}>
-                        <button className={styles.btnLogo}>
-                            <FontAwesomeIcon icon={faArrowUp} />
-                        </button>
-                        <p className={styles.p}>Villes</p>
-                        <input type="text" placeholder="Ville" value={villeFiltre} onChange={(e) => setVilleFiltre(e.target.value)} className={styles.searchFilter} />
-                    </div>
-                    <div className={styles.filtre}>
-                        <button className={styles.btnLogo}>
-                            <FontAwesomeIcon icon={faArrowDown} />
-                        </button>
-                        <p className={styles.p}>Note</p>
-                        <input type="text" placeholder="Note" value={noteFiltre} onChange={(e) => setNoteFiltre(e.target.value)} className={styles.searchFilter} />
-                    </div>
-                    <div className={styles.filtre}>
-                        <button className={styles.btnLogo}>
-                            <FontAwesomeIcon icon={faCalendarDays} />
-                        </button>
-                        <p className={styles.p}>Date</p>
-                        <LocalizationProvider dateAdapter={AdapterDayjs}>
-                            <div className={styles.calendar}>
-                                <DatePicker
-                                    label="Date de départ"
-                                    value={departureDate}
-                                    onChange={(newValue) => setDepartureDate(newValue)}
-                                    renderInput={(params) => <TextField {...params} />}
-                                />
-                                <DatePicker
-                                    label="Date d'arrivée"
-                                    value={arrivalDate}
-                                    onChange={(newValue) => setArrivalDate(newValue)}
-                                    minDate={departureDate} // Empêche de sélectionner une date d'arrivée avant la date de départ
-                                    renderInput={(params) => <TextField {...params} />}
-                                />
-                            </div>
-                        </LocalizationProvider>
-                    </div>
-                    <div className={styles.filtre}>
-                        <button className={styles.btnLogo}>
-                            <FontAwesomeIcon icon={faCalendarDays} />
-                        </button>
-                        <p className={styles.p}>Prix</p>
-                        <Box sx={{ width: 300 }}>
-                            <Typography id="range-slider" gutterBottom>
-                                Plage de prix
-                            </Typography>
-                            <Slider
-                                value={priceRange}
-                                onChange={handleSliderChange}
-                                valueLabelDisplay="auto"
-                                min={0}
-                                max={1000}
-                                aria-labelledby="range-slider"
+                <div className={styles.divPrincip}>
+                    <div className={styles.divFiltre}>
+                        <div className={styles.filtre}>
+                            <p className={styles.p}>Filtrer par:</p>
+                        </div>
+                        <div className={styles.filtre}>
+                            <Villes
+                                city={city}
+                                radius={radius}
+                                handleCityChange={handleCityChange}
+                                handleRadiusChange={handleRadiusChange}
                             />
-                            <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
-                                <TextField
-                                    label="Prix min"
-                                    value={priceRange[0]}
-                                    onChange={(event) => handleInputChange(event, 0)}
-                                    onBlur={handleBlur}
-                                    inputProps={{
-                                        step: 10,
-                                        min: 0,
-                                        max: 1000,
-                                        type: 'number',
-                                        'aria-labelledby': 'input-slider',
-                                    }}
-                                    sx={{ width: '45%' }}
-                                />
-                                <TextField
-                                    label="Prix max"
-                                    value={priceRange[1]}
-                                    onChange={(event) => handleInputChange(event, 1)}
-                                    onBlur={handleBlur}
-                                    inputProps={{
-                                        step: 10,
-                                        min: 0,
-                                        max: 1000,
-                                        type: 'number',
-                                        'aria-labelledby': 'input-slider',
-                                    }}
-                                    sx={{ width: '45%' }}
-                                />
-                            </Box>
-                        </Box>
-                    </div>
-                    <div className={styles.filtre}>
-                        <button className={styles.btnLogo}>
-                            <FontAwesomeIcon icon={faCalendarDays} />
-                        </button>
-                        <p className={styles.p}>État</p>
-                        <input type="text" placeholder="État de l'Outil" value={etatFiltre} onChange={(e) => setEtatFiltre(e.target.value)} className={styles.searchFilter} />
-                    </div>
-                </div>
-                <div className={styles.containerTwo}>
-                    <div className={styles.containerArticles}>
-                        {sortResults(results).map((article, index) => (
-                            <div className={styles.articles} key={index}>
-                                <h3 className={styles.p3}>{article.outil[0].categorie}</h3>
-                                <p className={styles.p2}>Marque: {article.outil[0].brand}</p>
-                                <p className={styles.p2}>Modèle: {article.outil[0].model}</p>
-                                <p className={styles.p2}>Prix: {article.price}</p>
-                                <p className={styles.p2}>Note: {article.note}</p>
+                        </div>
+                        <div className={styles.filtre}>
+                            <SlidePrix 
+                                priceRange={priceRange}
+                                handleSliderChange={handleSliderChange}
+                                handleInputChange={handleInputChange}
+                                handleBlur={handleBlur}
+                            />
+                        </div>
+                        <div className={styles.filtre}>
+                            <DatePickerOk
+                                departureDate={departureDate}
+                                arrivalDate={arrivalDate}
+                                setDepartureDate={setDepartureDate}
+                                setArrivalDate={setArrivalDate}
+                            />
+                        </div>
+                        <div className={styles.Note}>
+                            <TrierNote
+                                rating={rating}
+                                handleRatingChange={handleRatingChange}
+                            />
+                        </div>
+                        <div className={styles.filtre}>
+                            <EtatOutil 
+                                toolState={toolState}
+                                handleToolStateChange={handleToolStateChange}
+                            />
+                        </div>
+                                </div>
+                        <div className={styles.containerTwo}>
+                            <div className={styles.containerArticles}>
+                                <div className={styles.tri}>
+                            <select value={listCroissant} onChange={(e) => setListCroissant(e.target.value)}>
+                                <option value="">Sélectionner le tri</option>
+                                <option value="croissant">Prix Croissant</option>
+                                <option value="decroissant">Prix Décroissant</option>
+                            </select>
                             </div>
-                        ))}
+                                {sortResults(results).map((article, index) => (
+                                    <div className={styles.articles} key={index}>
+                                        <h3 className={styles.p3}>{article.outil[0].categorie}</h3>
+                                        <p className={styles.p2}>Marque: {article.outil[0].brand}</p>
+                                        <p className={styles.p2}>Modèle: {article.outil[0].model}</p>
+                                        <p className={styles.p2}>Prix: {article.price}</p>
+                                        <p className={styles.p2}>Note: {article.note}</p>
+                                    </div>
+
+                                ))}
+                            </div>
                     </div>
                 </div>
             </div>
