@@ -7,7 +7,14 @@ import { faStar } from '@fortawesome/free-solid-svg-icons';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import MuiInput from '@mui/material/Input';
 import moment from 'moment'
+import { styled } from '@mui/material/styles';
+import { FormControl, InputLabel, Select, MenuItem, TextField, Box } from '@mui/material';
+
+const Input = styled(MuiInput)`
+  width: 42px;
+`;
 
 export default function Profil() {
     const formData = new FormData();
@@ -23,10 +30,19 @@ export default function Profil() {
     const [edit, setEdit] = useState(false)
     const [add, setAdd] = useState(false)
 
+    const [categorie, setCategorie] = useState('')
+    const [brand, setBrand] = useState('')
+    const [model, setModel] = useState('')
+
+    const [etat, setEtat] = useState('')
+    const [price, setPrice] = useState(0)
+    const [locaduree, setLocaduree] = useState('')
+
     const userInfo = useSelector((state) => state.users.value)
     const username = userInfo.name
     const token = userInfo.token
 
+    //Connexion persistante
     useEffect(() => {
         fetch(`http://localhost:3000/users/profil/${username}/${token}`)
             .then(response => response.json())
@@ -55,6 +71,7 @@ export default function Profil() {
         setAdd(!add)
     }
 
+    //Edit du profil
     const handleApply = () => {
         fetch(`https://api-adresse.data.gouv.fr/search/?q=${adresse}`)
             .then(response => response.json())
@@ -92,6 +109,7 @@ export default function Profil() {
                             .then(data => {
                                 if (data.result) {
                                     setShow(!show)
+                                    setEdit(!edit)
                                 }
                             })
                     })
@@ -106,9 +124,110 @@ export default function Profil() {
         setFilename(event.target.files[0].name);
     };
 
+    const [allTools, setAllTools] = useState([])
+
+    //trie selecteur en fonction de la BDD
     const handleAdd = () => {
         setShow(!show)
         setAdd(!add)
+        fetch('http://localhost:3000/tools/getTools')
+        .then(response => response.json())
+        .then(data => {
+            if(data.result){
+                console.log(data)
+                setAllTools(data.data)
+            }
+        })
+    }
+
+    let filtrerCategories = []
+
+    allTools.map((data) => {
+        if(!filtrerCategories.includes(data.categorie)){
+            filtrerCategories.push(data.categorie)
+        }
+    })
+
+    let allCategories = filtrerCategories.map((data, i) => {
+        return (<MenuItem value={data} key={i}>
+            {data}
+        </MenuItem>)
+    })
+
+    let filtrerBrand = []
+
+    allTools.map((data) => {
+        if(data.categorie === categorie){
+            if(!filtrerBrand.includes(data.brand)){
+                filtrerBrand.push(data.brand)
+            }
+        }
+    })
+
+    let allBrand = filtrerBrand.map((data, i) => {
+        return (<MenuItem value={data} key={i}>
+            {data}
+        </MenuItem>)
+    })
+
+    let filtrerModel = []
+
+    allTools.map((data) => {
+        if(data.brand === brand && data.categorie === categorie){
+            if(!filtrerModel.includes(data.model)){
+                filtrerModel.push(data.model)
+            }
+        }
+    })
+
+    let allModel = filtrerModel.map((data, i) => {
+        return (<MenuItem value={data} key={i}>
+            {data}
+        </MenuItem>)
+    })
+
+    const handleBlur = () => {
+        if (price < 0) {
+          setPrice(0);
+        } else if (price > 50) {
+          setPrice(50);
+        }
+      };
+
+      const handleInputChange = (event) => {
+        setPrice(event.target.value === '' ? 0 : Number(event.target.value));
+    };
+
+    let articleToAdd;
+
+    const handleAddThis = () => {
+            allTools.map((data) => {
+                console.log(data.model)
+                if(data.model === model && data.brand === brand && data.categorie === categorie){
+                    console.log(data._id)
+                    articleToAdd = data._id
+                }
+            })
+            fetch('http://localhost:3000/users/addArtcile',{
+                method : 'PUT',
+                headers: { 'Content-Type': 'application/json' },
+                body : JSON.stringify({
+                    username : username,
+                    token : token,
+                    urlPhoto : 'default.png',
+                    etat : etat,
+                    price : price,
+                    isAvailable : true,
+                    outil : articleToAdd,
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.result){
+                    setShow(!show)
+                    setAdd(!add)
+                }
+            })
     }
 
     if(edit){
@@ -137,7 +256,84 @@ export default function Profil() {
         modal = (<div className='App'>
             <Modal show={show} onHide={handleCloseAdd} centered>
                 <div>
-                    
+                    <div>
+                    <div>
+                        <input type='file' accept="image/png" onChange={handleFileChange} className={styles.file}/>
+                    </div>
+                    </div>
+                    <Box sx={{ maxWidth: 200, margin: 'auto', padding: 2 }}>
+                        <FormControl fullWidth sx={{ marginBottom: 2 }}>
+                            <InputLabel id="categorie">Categorie</InputLabel>
+                            <Select
+                                labelId="city-label"
+                                value={categorie}
+                                label="Categorie"
+                                onChange={(e) => setCategorie(e.target.value)}
+                            >
+                                {allCategories}
+                                
+                            </Select>
+                        </FormControl>
+                        <FormControl fullWidth sx={{ marginBottom: 2 }}>
+                            <InputLabel id="2">Marque</InputLabel>
+                            <Select
+                                labelId="2-label"
+                                value={brand}
+                                label="Marque"
+                                onChange={(e) => setBrand(e.target.value)}
+                            >
+                                {allBrand}
+                            </Select>
+                        </FormControl>
+                        <FormControl fullWidth sx={{ marginBottom: 2 }}>
+                            <InputLabel id="3">Model</InputLabel>
+                            <Select
+                                labelId="3"
+                                value={model}
+                                label="Model"
+                                onChange={(e) => setModel(e.target.value)}
+                            >
+                                {allModel}
+                            </Select>
+                        </FormControl>
+                        <FormControl fullWidth sx={{ marginBottom: 2 }}>
+                            <InputLabel id="4">Etat</InputLabel>
+                            <Select
+                                labelId="4"
+                                value={etat}
+                                label="Etat"
+                                onChange={(e) => setEtat(e.target.value)}
+                            >
+                                <MenuItem value={'Comme neuf'}>
+                                    Comme neuf
+                                </MenuItem>
+                                <MenuItem value={'Bon etat'}>
+                                    Bon etat
+                                </MenuItem>
+                                <MenuItem value={etat}>
+                                    Etat moyen
+                                </MenuItem>
+                            </Select>
+                        </FormControl>
+                        <div>
+                            <p>Price</p>
+                            <Input
+                                className={styles.input}
+                                value={price}
+                                size="medium"
+                                onChange={handleInputChange}
+                                onBlur={handleBlur}
+                                inputProps={{
+                                    step: 1,
+                                    min: 1,
+                                    max: 50,
+                                    type: 'number',
+                                    'aria-labelledby': 'input-slider',
+                                }}
+                            />
+                        </div>
+                    </Box>
+                    <button onClick={() => handleAddThis()}>Confirmer</button>
                 </div>
             </Modal>
         </div>)
