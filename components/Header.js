@@ -74,8 +74,10 @@ export default function Header() {
     const [insUsername, setInsUsername] = useState('')
     const [email, setEmail] = useState('')
     const [insPassword, setInsPassword] = useState('')
+    //Si inscription avec google les champs nom et prenom seront remplis automatiquement
     const [nom, setNom] = useState('')
     const [prenom, setPrenom] = useState('')
+
     const [adresse, setAdresse] = useState('')
     const [ville, setVille] = useState('')
 
@@ -142,10 +144,15 @@ export default function Header() {
     }
 
     const handleSignUp = () => {
+        fetch(`https://api-adresse.data.gouv.fr/search/?q=${adresse}`)
+        .then(response => response.json())
+        .then(data => {
+            let latitude = data.features[0].geometry.coordinates[1]
+            let longitude = data.features[0].geometry.coordinates[0]
             fetch('http://localhost:3000/users/signup', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({username : insUsername, email : email, password : insPassword, nom : nom, prenom : prenom, adresse : adresse, ville : ville})
+                body: JSON.stringify({username : insUsername, email : email, password : insPassword, nom : nom, prenom : prenom, adresse : adresse, ville : ville, latitude : latitude, longitude : longitude})
             })
             .then(response => response.json())
             .then(data => {
@@ -155,10 +162,13 @@ export default function Header() {
                     setConnect(!connect)
                     setNext(!next)
                     console.log(data.newuserInfos)
+                    setError('')
+                    setErrorMail('')
                 } else {
                     setError(data.error)
                 }
             })
+        })
     }
 
     //connexion
@@ -175,6 +185,8 @@ export default function Header() {
                 setShow(!show)
                 setConnexion(!connexion)
                 setConnect(!connect)
+                setError('')
+                setErrorMail('')
             } else {
                 setError(data.error)
             }
@@ -186,6 +198,10 @@ export default function Header() {
         router.push('/')
         dispatch(LogOut())
         setConnect(!connect)
+        setNom('')
+        setPrenom('')
+        setAdresse('')
+        setVille('')
     }
 
     //la modale change en fonction de si l'utilisateur s'inscrit ou se connecte
@@ -243,7 +259,7 @@ export default function Header() {
                     <input type='text' placeholder='Ville' onChange={e => setVille(e.target.value)} className={styles.inputUnit} value={ville}/>
                 </div>
                 <div className={styles.divBtnLogs}>
-                    <button onClick={() => handleSignUp()} className={styles.btnLogs}>Suivant</button>
+                    <button onClick={() => handleSignUp()} className={styles.btnLogs}>S'inscrire</button>
                 </div>
             </div>
         </Modal>
