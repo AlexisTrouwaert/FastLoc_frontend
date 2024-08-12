@@ -1,4 +1,4 @@
-import Paiement from '../components/CartDetail';
+import Paiement from '../components/Paiement';
 
 function PaiementPage() {
   return <Paiement />;

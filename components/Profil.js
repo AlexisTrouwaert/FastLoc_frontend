@@ -71,7 +71,7 @@ export default function Profil() {
             if (!data.result){
                 setNote("Cet utilisateur n'as pas encore reçu de notes")
             } else {
-                let j =0;
+                let j = 0
                 let k = 0
                 let noteL = 0
                 let noteLo = 0
@@ -91,6 +91,24 @@ export default function Profil() {
             }
         })
     }, [refresh])
+
+    const starsLou = [];
+        for (let i = 0; i < 5; i++) {
+            let style = {};
+            if (i < noteLou) {
+            style = { 'color': '#f1c40f' };
+            }
+            starsLou.push(<FontAwesomeIcon key={i} icon={faStar} style={style} />);
+        }
+
+    const starsLoc = [];
+    for (let i = 0; i < 5; i++) {
+        let style = {};
+        if (i < noteLoc) {
+        style = { 'color': '#f1c40f' };
+    }
+    starsLoc.push(<FontAwesomeIcon key={i} icon={faStar} style={style} />);
+    }
 
     function reload(){
         setRefresh(!refresh)
@@ -380,6 +398,8 @@ export default function Profil() {
 
     let modal;
 
+    const [search, setSearch] = useState('')
+
     return (
         <div className={styles.all}>
             {modal}
@@ -404,11 +424,11 @@ export default function Profil() {
                         <div className={styles.divNote}>
                             <div>
                                 <p className={styles.p}>Note loueur : {noteLou}</p>
-                                
+                                {starsLou}
                             </div>
                             <div>
                                 <p className={styles.p}>Note locataire : {noteLoc}</p>
-                                
+                                {starsLoc}
                             </div>
                             <button className={styles.edit} onClick={() => handleEdit()}>Éditer mon profil</button>
                         </div>
@@ -418,7 +438,7 @@ export default function Profil() {
                             <Avis info={avis}/>
                         </div>
                         <div className={styles.divSearch}>
-                            <input type='text' placeholder='Recherchez parmis vos articles en location' className={styles.searchB} />
+                            <input type='text' placeholder='Recherchez parmis vos articles en location' className={styles.searchB} onChange={e => setSearch(e.target.value)}/>
                             <button
                                 className={styles.btnSearch}
                                 onClick={() => handleSearch()}
@@ -436,7 +456,7 @@ export default function Profil() {
                             </div>
                             <p className={styles.add}>Ajouter un article</p>
                         </div>
-                        <MyArticles outildata={myArticles} functionR={reload} username={username} token={token}/>
+                        <MyArticles outildata={myArticles} functionR={reload} username={username} token={token} search={search}/>
                     </div>
                 </div>
             </div>
