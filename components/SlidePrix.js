@@ -6,9 +6,9 @@ import { Box, Typography, Slider, TextField } from '@mui/material';
 export default function SlidePrix({ priceRange, handleSliderChange, handleInputChange, handleBlur }) {
     return (
 
-        <div className={styles.filtre}>
-        <Box sx={{ '& .MuiOutlinedInput-root': { 
-        border: '2px solid #FEBD59'}}}>
+        <div className={styles.filtre} >
+        <Box /*sx={{ '& .MuiOutlinedInput-root': { 
+        border: '2px solid #FEBD59'}}}*/>
             <div className={styles.divPrix} >
             <TextField className={styles.cadrePrix}
                 label="Prix Min"
