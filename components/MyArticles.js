@@ -1,10 +1,23 @@
+import { useSelector } from 'react-redux';
 import styles from '../styles/MyArticles.module.css'
 import { useState, useEffect } from 'react';
 
+
 export default function MyArticles (props) {
 
+    const handleSuppress = (id) => {
+        fetch(`http://localhost:3000/users/deleteArt/${id}/${props.username}/${props.token}`, {
+            method: 'DELETE'
+        })
+        .then(response => response.json())
+        .then(data => {
+            if(data.result){
+                props.functionR()
+            }
+        })
+    }
+
     let articles = props.outildata && props.outildata[0].map((data, i) => {
-        let url = data.urlPhoto
         return(
             <div key={i} className={styles.all}>
                     <div className={styles.imgD}>
@@ -23,7 +36,7 @@ export default function MyArticles (props) {
                     </div>
                     <div className={styles.divBtn}>
                         <button className={styles.edit}>Modifier</button>
-                        <button className={styles.edit}>Supprimer</button>
+                        <button className={styles.edit} onClick={() => handleSuppress(data._id)}>Supprimer</button>
                     </div>
             </div>
         )

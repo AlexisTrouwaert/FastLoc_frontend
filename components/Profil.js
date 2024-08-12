@@ -12,12 +12,14 @@ import moment from 'moment'
 import { styled } from '@mui/material/styles';
 import { FormControl, InputLabel, Select, MenuItem, TextField, Box } from '@mui/material';
 import MyArticles from './MyArticles'
+import Avis from'./Avis'
 
 const Input = styled(MuiInput)`
   width: 42px;
 `;
 
 export default function Profil() {
+    // <FontAwesomeIcon icon={faStar} color={'#FEBD59'} />
     const formData = new FormData();
 
     const [show, setShow] = useState(false)
@@ -46,7 +48,11 @@ export default function Profil() {
     const username = userInfo.name
     const token = userInfo.token
 
-    //Connexion persistante
+    let [noteLou, setNoteLou] = useState(0)
+    let [noteLoc, setNoteLoc] = useState(0)
+    const [avis, setAvis] = useState([])
+
+    //Connexion persistante & recuperation all data user + Avis avec moyenne
     useEffect(() => {
         fetch(`http://localhost:3000/users/profil/${username}/${token}`)
             .then(response => response.json())
@@ -59,9 +65,38 @@ export default function Profil() {
                 setUrl(data.data.url)
                 setMyArticles([data.data.article])
             })
+        fetch(`http://localhost:3000/avis/${username}/${token}`)
+        .then(response => response.json())
+        .then(data => {
+            if (!data.result){
+                setNote("Cet utilisateur n'as pas encore reçu de notes")
+            } else {
+                let j =0;
+                let k = 0
+                let noteL = 0
+                let noteLo = 0
+                for (let i of data.data){
+                    if(i.Lou){
+                        j++
+                        noteL += i.Note
+                    } else if (i.Loc){
+                        k++
+                        noteLo += i.Note
+                    }
+                    setNoteLou(noteL / j)
+                    setNoteLoc(noteLo / k)
+                    setAvis(data.data.reverse())
+                    console.log(avis)
+                }
+            }
+        })
     }, [refresh])
 
-    console.log(myArticles)
+    function reload(){
+        setRefresh(!refresh)
+    }
+
+    
     const handleEdit = () => {
         setShow(!show)
         setEdit(!edit)
@@ -207,9 +242,7 @@ export default function Profil() {
 
     const handleAddThis = () => {
             allTools.map((data) => {
-                console.log(data.model)
                 if(data.model === model && data.brand === brand && data.categorie === categorie){
-                    console.log(data._id)
                     articleToAdd = data._id
                 }
             })
@@ -370,27 +403,19 @@ export default function Profil() {
                         </div>
                         <div className={styles.divNote}>
                             <div>
-                                <p className={styles.p}>Note loueur : 4</p>
-                                <FontAwesomeIcon icon={faStar} color={'#FEBD59'} />
-                                <FontAwesomeIcon icon={faStar} color={'#FEBD59'} />
-                                <FontAwesomeIcon icon={faStar} color={'#FEBD59'} />
-                                <FontAwesomeIcon icon={faStar} color={'#FEBD59'} />
-                                <FontAwesomeIcon icon={faStar} />
+                                <p className={styles.p}>Note loueur : {noteLou}</p>
+                                
                             </div>
                             <div>
-                                <p className={styles.p}>Note locataire : 3</p>
-                                <FontAwesomeIcon icon={faStar} color={'#FEBD59'} />
-                                <FontAwesomeIcon icon={faStar} color={'#FEBD59'} />
-                                <FontAwesomeIcon icon={faStar} color={'#FEBD59'} />
-                                <FontAwesomeIcon icon={faStar} />
-                                <FontAwesomeIcon icon={faStar} />
+                                <p className={styles.p}>Note locataire : {noteLoc}</p>
+                                
                             </div>
                             <button className={styles.edit} onClick={() => handleEdit()}>Éditer mon profil</button>
                         </div>
                     </div>
                     <div className={styles.avisAndSearch}>
                         <div className={styles.avis}>
-
+                            <Avis info={avis}/>
                         </div>
                         <div className={styles.divSearch}>
                             <input type='text' placeholder='Recherchez parmis vos articles en location' className={styles.searchB} />
@@ -411,7 +436,7 @@ export default function Profil() {
                             </div>
                             <p className={styles.add}>Ajouter un article</p>
                         </div>
-                        <MyArticles outildata={myArticles}/>
+                        <MyArticles outildata={myArticles} functionR={reload} username={username} token={token}/>
                     </div>
                 </div>
             </div>

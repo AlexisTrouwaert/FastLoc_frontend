@@ -1,0 +1,49 @@
+.all{
+    overflow: scroll;
+    white-space: nowrap;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.tile{
+    border-right: 1px solid rgb(203, 203, 203);
+    margin-right: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+}
+
+.name{
+    font-family: Helvetica-Bold;
+    margin: 0%;
+}
+
+.p{
+    margin: 0%;
+}
+
+.img{
+    height: 50px;
+}
+
+.mainInfo{
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+.divAvis{
+    margin: 10px;
+}
+
+.pCategorie{
+    font-family: Helvetica-Bold;
+    font-size: 10px;
+}
+
+.divCategorie{
+    margin-top: 40px;
+    margin-left: 10px;
+}

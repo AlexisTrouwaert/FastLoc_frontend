@@ -75,6 +75,8 @@
     background: #F6F6F6;
     box-shadow:  13px 13px 10px #cacaca,
                 -13px -13px 10px #ffffff;
+    display: flex;
+    overflow: scroll;
 }
 
 .searchB{
