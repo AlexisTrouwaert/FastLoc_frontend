@@ -28,6 +28,10 @@
     font-size: 30px;
     border-bottom: 1px solid #C8C8C8;
     margin: 15px;
+    width: 330px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .paiement{
@@ -40,11 +44,28 @@
 }
 
 .divBtn{
-    margin: 15px;
+    margin: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
 }
 
 .inputs{
     margin: 15px;
+    border-style: none;
+    background: none;
+    height: 4vh;
+    border-radius: 15px;
+    width: 240px;
+    background: #ffffff;
+    box-shadow: inset 10px 10px 25px #d7d7d7,
+                inset -10px -10px 5px #fdfdfd; 
+}
+
+.inputsCard{
+    margin: 15px;
+    width: 330px;
     border-style: none;
     background: none;
     height: 4vh;
@@ -74,4 +95,15 @@
 
 .divInput{
     display: flex;
+}
+
+.modePaiement{
+    border-style: none;
+    background: none;
+    border-radius: 15px;
+    color: white;
+    background-color: #63859E;
+    height: 40px;
+    margin: 15px;
+    width: 150px;
 }
