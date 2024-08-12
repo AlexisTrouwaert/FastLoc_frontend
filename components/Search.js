@@ -15,7 +15,7 @@ import TrierNote from './TrierNote';
 import EtatOutil from './EtatOutil';
 import { Container, TextField, Slider, Rating, Typography, Select, MenuItem, FormControl, InputLabel } from '@mui/material';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
-import { faMagnifyingGlass, faArrowDown, faArrowUp, faCalendarDays } from '@fortawesome/free-solid-svg-icons';
+import { faMagnifyingGlass, faArrowDown, faCircleRight, faCalendarDays } from '@fortawesome/free-solid-svg-icons';
 
 export default function Search() {
     const [city, setCity] = useState('');
@@ -53,6 +53,7 @@ export default function Search() {
     };
 
     const handleSliderChange = (event, newValue) => {
+        console.log("newValue : ", newValue);
         setPriceRange(newValue);
     };
 
@@ -104,13 +105,52 @@ export default function Search() {
         } else if (listCroissant === 'decroissant') {
             return articles.sort((a, b) => b.price - a.price);
         }
-        return articles;
+
+        const articleFiltered = articles.filter(article => {
+            return article.price > priceRange[0] && article.price < priceRange[1]
+            console.log(article)
+        })
+        return articleFiltered;
     };
+
+    const articles = sortResults(results).map((article, index) => (
+        <div className={styles.articles} key={index}>
+            <div className={styles.sousArticlesOne}>
+                <div className={styles.contHaut}>
+                    <div className={styles.sousImage}>
+                        {console.log(article)}
+                        <img src={article.urlPhoto} alt="Photo" />
+                        
+                    </div>
+                    <div className={styles.infoArticles}>
+                        <h3 className={styles.p3}>{article.outil[0].categorie}</h3>
+                        <p className={styles.p2}>{article.price} € / par Jour</p>
+                        <p className={styles.p2}>Marque: {article.outil[0].brand}</p>
+                        <p className={styles.p2}>Etat: {article.etat}</p>
+                        <p className={styles.p2}>Note: {article.note}</p>
+                    </div>
+                </div>
+            </div>
+            <div className={styles.duree}>
+                <p className={styles.p4}> Duréee de location: " " /Jour Maximum</p>
+                <button
+                    className={styles.btnSuivant}
+                    onClick={() => handleSuivant()}>
+                    <FontAwesomeIcon icon={faCircleRight} />
+                </button>
+
+            </div>
+
+        </div>
+    ))
 
     return (
         <div>
             <div className={styles.header}>
-            <Header />
+                <Header />
+            </div>
+            <div style={{widht:"100vw", height: "100px", backgroundColor: "#333333", position: "fixed", top: 0, left: 0}} >
+
             </div>
             <div className={styles.container}>
                 <div className={styles.divSearch}>
@@ -129,6 +169,7 @@ export default function Search() {
 
                     {erreur && <p>{erreur}</p>}
                 </div>
+                
                 <div className={styles.divPrincip}>
                     <div className={styles.divFiltre}>
                         <div className={styles.filtre}>
@@ -143,7 +184,7 @@ export default function Search() {
                             />
                         </div>
                         <div className={styles.filtre}>
-                            <SlidePrix 
+                            <SlidePrix
                                 priceRange={priceRange}
                                 handleSliderChange={handleSliderChange}
                                 handleInputChange={handleInputChange}
@@ -165,32 +206,23 @@ export default function Search() {
                             />
                         </div>
                         <div className={styles.filtre}>
-                            <EtatOutil 
+                            <EtatOutil
                                 toolState={toolState}
                                 handleToolStateChange={handleToolStateChange}
                             />
                         </div>
-                                </div>
-                        <div className={styles.containerTwo}>
-                            <div className={styles.containerArticles}>
-                                <div className={styles.tri}>
-                            <select value={listCroissant} onChange={(e) => setListCroissant(e.target.value)}>
-                                <option value="">Sélectionner le tri</option>
-                                <option value="croissant">Prix Croissant</option>
-                                <option value="decroissant">Prix Décroissant</option>
-                            </select>
+                    </div>
+                    <div className={styles.containerTwo}>
+                        <div className={styles.containerArticles}>
+                            <div className={styles.tri}>
+                                <select value={listCroissant} onChange={(e) => setListCroissant(e.target.value)}>
+                                    <option value="">Sélectionner le tri</option>
+                                    <option value="croissant">Prix Croissant</option>
+                                    <option value="decroissant">Prix Décroissant</option>
+                                </select>
                             </div>
-                                {sortResults(results).map((article, index) => (
-                                    <div className={styles.articles} key={index}>
-                                        <h3 className={styles.p3}>{article.outil[0].categorie}</h3>
-                                        <p className={styles.p2}>Marque: {article.outil[0].brand}</p>
-                                        <p className={styles.p2}>Modèle: {article.outil[0].model}</p>
-                                        <p className={styles.p2}>Prix: {article.price}</p>
-                                        <p className={styles.p2}>Note: {article.note}</p>
-                                    </div>
-
-                                ))}
-                            </div>
+                            {articles}
+                        </div>
                     </div>
                 </div>
             </div>
