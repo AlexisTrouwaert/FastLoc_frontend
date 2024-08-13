@@ -1,0 +1,42 @@
+.all{
+    border-radius: 15px;
+    background: #F6F6F6;
+    box-shadow:  13px 13px 10px #cacaca,
+                -13px -13px 10px #ffffff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.inputs{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.btnSend{
+    border-style: none;
+    background: none;
+    background-color: #FEBD59;
+    color: white;
+    border-radius: 15px;
+    width: 130px;
+    height: 30px;
+}
+
+.textArea{
+    border-style: none;
+    background: none;
+    border-radius: 15px;
+    background: #e0e0e0;
+    box-shadow: inset 10px 10px 5px #d7d7d7,
+                inset -10px -10px 5px #fdfdfd;
+    height: 200px;
+    width: 500px;
+}
+
+.titleSend{
+    font-family: Helvetica-Bold;
+    font-size: 25px;
+}
