@@ -108,7 +108,6 @@ export default function Search() {
             const response = await fetch(url);
             const data = await response.json();
             console.log(data.user);
-
             if (data.result) {
                 const DataOk = sortResults(data.data);
                 setResults(DataOk);
