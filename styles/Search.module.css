@@ -139,10 +139,9 @@
 }
 
 .articles {
-    height: 38vh;
-    width: 50vh;
+    /* width: 50vh; */
     margin: 3vh;
-    background: #e5e5e5;
+    background: #EBEBEB;
     box-shadow:  13px 13px 10px #cacaca,
                 -13px -13px 10px #ffffff;
     border-radius: 15px;
@@ -150,7 +149,9 @@
     margin-top: 5vh;
     font-size: 1.5vh;
     position: relative;
-    display: column;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between 
 ;
 }
 .contHaut {
@@ -173,10 +174,10 @@
     display: flex;
     align-items: center;
     height: 10vh;
-    width: 44vh; 
-    border: 1px solid #ccc;
+    width: 100%; 
+    border: 1px solid  #63859E;
     margin-top: 20px;
-    background-color: white;
+
     border-radius: 15px;
     
 }
@@ -186,6 +187,15 @@
 }
 
 .btnSuivant {
+    background: none;
+    border-style: none;
+    border: 1px solid #63859E;
+    height: 20px;
+    width: 20px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     margin-left: 45px;
     margin-right: 0vh;
     color:  #63859E
@@ -193,10 +203,11 @@
 }
 .infoArticles {
 
-    width: 10vw;
-    height: 20vh;
+    /* width: 10vw; */
+    /* height: 20vh; */
+    min-width: 135px;
     right: 0;
-    background-color: white;
+    border: 1px solid  #63859E;
     border-radius: 15px;
 
 }
@@ -215,6 +226,7 @@
 .p2 {
     margin: 0%;
     margin-left: 10%;
+    margin-top: 2vh;
     
 }
 

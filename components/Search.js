@@ -1,6 +1,7 @@
 
 import React, { useState } from 'react';
 import styles from '../styles/Search.module.css';
+import { useEffect } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
@@ -15,7 +16,10 @@ import TrierNote from './TrierNote';
 import EtatOutil from './EtatOutil';
 import { Container, TextField, Slider, Rating, Typography, Select, MenuItem, FormControl, InputLabel } from '@mui/material';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
-import { faMagnifyingGlass, faArrowDown, faCircleRight, faCalendarDays } from '@fortawesome/free-solid-svg-icons';
+import { faMagnifyingGlass,faArrowRight, faCircleRight, faCalendarDays } from '@fortawesome/free-solid-svg-icons';
+import AffichArticles from './AffichArticles'; 
+import { useRouter } from 'next/router'
+
 
 export default function Search() {
     const [city, setCity] = useState('');
@@ -29,14 +33,31 @@ export default function Search() {
     const [listCroissant, setListCroissant] = useState('');
     const [results, setResults] = useState([]);
     const [erreur, setErreur] = useState('');
+    const [productArticle, SetProductArticle] = useState([]);
+    // const [id, SetId]
+    // const [articlesgenereaux, setArticlesGenereaux] = useState ([]);
     const [note, setNote] = useState(0)
     //const [activeFilter, setActiveFilter] = useState(false)
 
 
     //const handleFilterClick = (filter) => { setActiveFilter(prevFilter => (prevFilter === filter ? '' : filter)); };
+    const router = useRouter()
 
-
-
+    const handleSuivant = async () => {
+        try {
+            // const response = await fetch(`http://localhost:3000/users/detailArticles/`);
+           
+            // const data = await response.json();
+            // SetProductArticle(data);
+    
+            router.push('/productDetail?article=fdjfdifidjfid');
+        } catch (error) {
+            console.error('Erreur:', error);
+            setErreur('Erreur lors de la récupération de l article.');
+        }
+    };
+    
+    
     const handleCityChange = (event) => {
         setCity(event.target.value);
     };
@@ -107,13 +128,26 @@ export default function Search() {
             return articles.sort((a, b) => b.price - a.price);
         }
 
+        
+
         const articleFiltered = articles.filter(article => {
             return article.price > priceRange[0] && article.price < priceRange[1]
             console.log(article)
         })
         return articleFiltered;
     };
+    
+    useEffect(() => {
+        fetch('http://localhost:3000/users/articles')
+            .then(response => response.json())
+            .then(data => setResults(data)) 
+            .catch(error => {
+                console.error('Erreur:', error);
+                setErreur('Erreur lors de la récupération des articles.');
+            });
 
+    }, []);
+      
     const articles = sortResults(results).map((article, index) => (
         <div className={styles.articles} key={index}>
             <div className={styles.sousArticlesOne}>
@@ -135,9 +169,10 @@ export default function Search() {
             <div className={styles.duree}>
                 <p className={styles.p4}> Duréee de location: " " /Jour Maximum</p>
                 <button
+                    onClick={() => router.push(`/productDetail?article=${article._id}`)                }
                     className={styles.btnSuivant}
-                    onClick={() => handleSuivant()}>
-                    <FontAwesomeIcon icon={faCircleRight} />
+                    >
+                    <FontAwesomeIcon icon={faArrowRight}  />
                 </button>
 
             </div>
@@ -215,6 +250,7 @@ export default function Search() {
                     </div>
                     <div className={styles.containerTwo}>
                         <div className={styles.containerArticles}>
+                
                             <div className={styles.tri}>
                                 <select value={listCroissant} onChange={(e) => setListCroissant(e.target.value)}>
                                     <option value="">Sélectionner le tri</option>
