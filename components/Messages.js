@@ -12,7 +12,17 @@ export default function Messages() {
             <div>
                 <Header/>
             </div>
-            <PostAvis/>
+            <div>
+                <div>
+                    <p>All</p>
+                </div>
+                <div>
+                    <p>Chat</p>
+                </div>
+            </div>
+            <div>
+                <PostAvis/>
+            </div>
         </div>
     )
 }

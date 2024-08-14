@@ -2,6 +2,8 @@ import Header from './Header'
 import styles from '../styles/Orders.module.css'
 import { useRouter } from 'next/router'
 import Cart from './Cart'
+import Pending from './Pending'
+import Finish from './Finish'
 
 export default function Orders() {
 
@@ -19,16 +21,16 @@ export default function Orders() {
                         <Cart/>
                     </div>
                     <div>
-                        <p>Commande en cours</p>
+                        <p className={styles.title}>Commande en cours</p>
                     </div>
                     <div>
-                        <p>Détail</p>
+                        <Pending/>
                     </div>
                     <div>
-                        <p>Commande passée</p>
+                        <p className={styles.title}>Commande passée</p>
                     </div>
                     <div>
-                        <p>Détail</p>
+                        <Finish/>
                     </div>
                 </div>
             </div>

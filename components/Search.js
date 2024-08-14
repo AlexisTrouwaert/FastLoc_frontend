@@ -29,6 +29,7 @@ export default function Search() {
     const [listCroissant, setListCroissant] = useState('');
     const [results, setResults] = useState([]);
     const [erreur, setErreur] = useState('');
+    const [note, setNote] = useState(0)
     //const [activeFilter, setActiveFilter] = useState(false)
 
 
@@ -85,7 +86,7 @@ export default function Search() {
 
             const response = await fetch(url);
             const data = await response.json();
-            console.log(data);
+            console.log(data.user);
 
             if (data.result) {
                 const DataOk = sortResults(data.data);
@@ -127,7 +128,7 @@ export default function Search() {
                         <p className={styles.p2}>{article.price} € / par Jour</p>
                         <p className={styles.p2}>Marque: {article.outil[0].brand}</p>
                         <p className={styles.p2}>Etat: {article.etat}</p>
-                        <p className={styles.p2}>Note: {article.note}</p>
+                        <p className={styles.p2}>Note: {note}</p>
                     </div>
                 </div>
             </div>

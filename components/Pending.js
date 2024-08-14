@@ -3,7 +3,7 @@ import styles from '../styles/OrdersDetail.module.css'
 import { useSelector } from 'react-redux'
 import moment from 'moment'
 
-export default function Cart () {
+export default function Pending () {
 
     const userInfo = useSelector((state) => state.users.value)
     const username = userInfo.name
@@ -23,12 +23,12 @@ export default function Cart () {
     console.log('cart',cart)
 
     const allCart = cart && cart.map((data, i) => {
-        if(data.Cart){
+        if(data.Pending){
             const dateOrder = moment(data.Date).format('DD/MM/YYYY')
             return(
                 <div key={i}>
                     <div>
-                        <p>Panier commencé le {dateOrder}</p>
+                        <p>Commande passée le {dateOrder}</p>
                     </div>
                     <div>
                         <p>Total de {data.article.Price}€</p>
