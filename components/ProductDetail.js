@@ -13,6 +13,15 @@ export default function ProductDetail() {
     const [userData, setUserData] = useState(null);  // Stocker les données utilisateur
     const [selectedArticle, setSelectedArticle] = useState(null);
     const [articleSecond, setArticleSecond] = useState(null);
+    const handleChangeEtat = (event) => {
+        setSelectedState(event.target.value);
+    };
+
+    const filteredTools = selectedState
+    ? tools.filter((tool) => tool.etat === selectedState)
+    : tools;
+
+
     useEffect(() => {
         if (myParam) {
             fetch(`http://localhost:3000/users/detailArticles/${myParam}`)
@@ -69,6 +78,11 @@ export default function ProductDetail() {
                             <p className={styles.p1}>{userData.firstName} {userData.name}</p>
                         </div>
                     </div>
+                    <div className={styles.btnProfil}>
+                            <Stack spacing={2} direction="row">
+                                <Button onClick={() => router.push(`/profil?users=${userData._id}`) } className={styles.btnProfil} variant="contained">Voir le Profil de {userData.firstName} </Button>
+                            </Stack>
+                                    </div>
                     <div className={styles.centreDroite}>
                         <p className={styles.p1}>VILLE: {userData.addresse.city}</p>
                         <p className={styles.p1}>Membre depuis le: {new Date(userData.date).toLocaleDateString()}</p>
@@ -94,16 +108,18 @@ export default function ProductDetail() {
                                         <img src={selectedArticle.urlPhoto || 'defaultOutil.jpg'} alt="Photo article" />
                                     </div>
                                     <div className={styles.infoDroite}>
+                                        <div>
                                         <p className={styles.p1}>Catégorie: {selectedArticle.outil[0].categorie}</p>
                                         <p className={styles.p1}>Marque: {selectedArticle.outil[0].brand}</p>
                                         <p className={styles.p1}>Model: {selectedArticle.outil[0].model}</p>
                                         <p className={styles.p1}>État: {selectedArticle.etat}</p>
                                         <p className={styles.p1}>Prix: {selectedArticle.price}€</p>
                                         <p className={styles.p1}>Disponible: {selectedArticle.isAvailable ? 'Oui' : 'Non'}</p>
-                                        <div></div>
-                                        <div>
+                                        </div>
+                                        <div className={styles.btn}>
                             <Stack spacing={2} direction="row">
-                                <Button variant="contained">Commander cet Article</Button>
+                                <Button  onClick={() => router.push(`/cartDetail?article=${selectedArticle._id}`)                }
+                    className={styles.btnCommande} variant="contained">Commander cet Article</Button>
                             </Stack>
                                 </div>
                                     </div>
@@ -136,6 +152,12 @@ export default function ProductDetail() {
                                             <p className={styles.p1}>Prix: {articleData.price}€</p>
                                             <p className={styles.p1}>Disponible: {articleData.isAvailable ? 'Oui' : 'Non'}</p>
                                         </div>
+                                        <div >
+                            <Stack spacing={2} direction="row">
+                                <Button onClick={() => router.push(`/productDetail?article=${articleData._id}`) }
+                                 className={styles.btnArticle} variant="contained">Voir L'Article </Button>
+                            </Stack>
+                                    </div>
                                     </div>
                                 ))}
                             <div className={styles.artUser}>

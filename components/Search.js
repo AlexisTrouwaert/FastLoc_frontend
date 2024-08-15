@@ -36,7 +36,6 @@ export default function Search() {
     const [productArticle, SetProductArticle] = useState([]);
     // const [id, SetId]
     // const [articlesgenereaux, setArticlesGenereaux] = useState ([]);
-    const [note, setNote] = useState(0)
     //const [activeFilter, setActiveFilter] = useState(false)
 
 
@@ -107,7 +106,7 @@ export default function Search() {
 
             const response = await fetch(url);
             const data = await response.json();
-            console.log(data.user);
+            console.log(data);
 
             if (data.result) {
                 const DataOk = sortResults(data.data);
@@ -162,14 +161,14 @@ export default function Search() {
                         <p className={styles.p2}>{article.price} € / par Jour</p>
                         <p className={styles.p2}>Marque: {article.outil[0].brand}</p>
                         <p className={styles.p2}>Etat: {article.etat}</p>
-                        <p className={styles.p2}>Note: {note}</p>
+                        <p className={styles.p2}>Note: {article.note}</p>
                     </div>
                 </div>
             </div>
             <div className={styles.duree}>
                 <p className={styles.p4}> Duréee de location: " " /Jour Maximum</p>
                 <button
-                    onClick={() => router.push(`/productDetail?article=${article._id}`)                }
+                    onClick={() => router.push(`/productDetail?article=${article}`)                }
                     className={styles.btnSuivant}
                     >
                     <FontAwesomeIcon icon={faArrowRight}  />

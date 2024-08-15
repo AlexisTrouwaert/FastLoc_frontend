@@ -8,6 +8,28 @@
     padding: 20px;
 }
 
+.header{
+    /* position: fixed */
+    position: sticky;
+    left: 0;
+    top:0;
+    z-index: 5;
+    
+}
+.btnArticle {
+    width: 60;
+    min-width: 50;
+    background-color:  #63859E !important;
+    border-radius: 15px;
+
+}
+
+
+.btnProfil {
+    width: 100%;
+    background-color:  #63859E !important;
+    border-radius: 15px;
+}
 .containerDroite {
     width: 270px;
     height: 90%;
@@ -136,7 +158,7 @@
 
 .photoDroite {
     background-color: white;
-    width: 29%;
+    width: 40%;
     height: 100%;
     border-radius: 15px;
     display: flex;
@@ -155,9 +177,17 @@
     padding: 10px;
     margin: 2vh;
     display: flex;
+    align-items: center;
 
 }
+.btn {
+    margin: 10vh;
+}
 
+.btnCommande {
+    border-radius: 15px !important;
+    background-color:  #FEBD59 !important;
+}
 .containerbasGauche {
     width: 100%;
     height: 40%;
