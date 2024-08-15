@@ -9,20 +9,24 @@ export default function Cart () {
     const username = userInfo.name
     const token = userInfo.token
 
-    const [finishArticles, setCartArticles] = useState([])
+    const [finishArticles, setFinishArticles] = useState([])
     const [myArticles, setMyArticles] = useState([])
     const [date, setDate] = useState(null)
     const [loading, setLoading] = useState(false)
 
     useEffect(() => {
+        //recuperer toute les commandes de l'utilisateur
         fetch(`http://localhost:3000/orders/${username}/${token}`)
         .then(response => response.json())
         .then(data => {
             let allOrders = data.data[0].Orders
             for(let i of allOrders){
+                console.log(i)
+                //Verifier si ces commandes sont terminée
                 if(i.Finish){
                     setDate(i.Date)
-                    setCartArticles(i.article)
+                    //stocker seulement celles qui sont finis dans l'etat FinishArticles
+                    setFinishArticles(i.article)
                 }
             }
             if(finishArticles !== undefined && !loading){
@@ -31,21 +35,21 @@ export default function Cart () {
         })
         .then(() =>{
             if(loading){
-                fetch(`http://localhost:3000/users/detailArticles/${finishArticles[0]}`)
-                .then(response => response.json())
-                .then(data => {
-                    let myArticlesFinish = []
-                    for (let i of data.data){
-                        console.log(finishArticles.length)
-                        for (let j = 0; j < finishArticles.length; j++){
-                            if(i._id.includes(finishArticles[j])){
-                                myArticlesFinish.push(i)
+                
+                    fetch(`http://localhost:3000/users/detailArticles/${finishArticles[0]}`)
+                    .then(response => response.json())
+                    .then(data => {
+                        let myArticlesFinish = []
+                        for (let i of data.data){
+                            for (let j = 0; j < finishArticles.length; j++){
+                                if(i._id.includes(finishArticles[j])){
+                                    myArticlesFinish.push(i)
+                                }
                             }
                         }
-                    }
-    
-                    setMyArticles(myArticlesFinish)
-                })
+                        setMyArticles(myArticlesFinish)
+                    })
+                
             }
         })
     },[loading])

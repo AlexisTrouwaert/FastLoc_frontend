@@ -14,19 +14,19 @@ export default function Orders() {
             </div>
             <div className={styles.all}>
                 <div className={styles.tile}>
-                    <div>
+                    <div className={styles.titleDiv}>
                         <p className={styles.title}>Pannier en cours</p>
                     </div>
                     <div>
                         <Cart/>
                     </div>
-                    <div>
+                    <div className={styles.titleDiv}>
                         <p className={styles.title}>Commande en cours</p>
                     </div>
                     <div>
                         <Pending/>
                     </div>
-                    <div>
+                    <div className={styles.titleDiv}>
                         <p className={styles.title}>Commande passée</p>
                     </div>
                     <div>

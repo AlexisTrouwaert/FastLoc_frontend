@@ -10,21 +10,22 @@
     position: fixed;
 }
 
-/* .tile{
-    border-radius: 15px;
-    background: #F6F6F6;
-    box-shadow:  13px 13px 10px #cacaca,
-                -13px -13px 10px #ffffff;
-    height: auto;
-    width: 33vw;
+.tile{
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: space-between;
-} */
+    justify-content: center;
+}
 
 .title{
     font-family: Helvetica-Bold;
     font-size: 30px;
-    border-bottom: 1px solid black;
+}
+
+.titleDiv{
+    width: 500px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-bottom: 1px solid #FEBD59;
 }
