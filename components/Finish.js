@@ -35,7 +35,7 @@ export default function Cart () {
         })
         .then(() =>{
             if(loading){
-                
+                    //Recuperation des data des articles par leurs id dans la collection orders
                     fetch(`http://localhost:3000/users/detailArticles/${finishArticles[0]}`)
                     .then(response => response.json())
                     .then(data => {
@@ -55,7 +55,7 @@ export default function Cart () {
     },[loading])
 
     let total = 0;
-
+    //Calcul du total de la commande
     for (let i of myArticles){
         total += i.price
     }
