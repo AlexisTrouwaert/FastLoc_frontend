@@ -10,7 +10,7 @@
     position: fixed;
 }
 
-.tile{
+/* .tile{
     border-radius: 15px;
     background: #F6F6F6;
     box-shadow:  13px 13px 10px #cacaca,
@@ -21,7 +21,7 @@
     flex-direction: column;
     align-items: center;
     justify-content: space-between;
-}
+} */
 
 .title{
     font-family: Helvetica-Bold;
