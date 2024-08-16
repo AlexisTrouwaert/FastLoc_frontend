@@ -13,13 +13,6 @@ export default function ProductDetail() {
     const [userData, setUserData] = useState(null);  // Stocker les données utilisateur
     const [selectedArticle, setSelectedArticle] = useState(null);
     const [articleSecond, setArticleSecond] = useState(null);
-    const handleChangeEtat = (event) => {
-        setSelectedState(event.target.value);
-    };
-
-    const filteredTools = selectedState
-    ? tools.filter((tool) => tool.etat === selectedState)
-    : tools;
 
 
     useEffect(() => {
