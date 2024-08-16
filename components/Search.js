@@ -167,7 +167,7 @@ export default function Search() {
             <div className={styles.duree}>
                 <p className={styles.p4}> Duréee de location: " " /Jour Maximum</p>
                 <button
-                    onClick={() => router.push(`/productDetail?article=${article}`)                }
+                    onClick={() => router.push(`/productDetail?article=${article._id}`)                }
                     className={styles.btnSuivant}
                     >
                     <FontAwesomeIcon icon={faArrowRight}  />
