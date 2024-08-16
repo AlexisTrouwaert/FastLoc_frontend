@@ -34,6 +34,8 @@ export default function Search() {
     const [results, setResults] = useState([]);
     const [erreur, setErreur] = useState('');
     const [productArticle, SetProductArticle] = useState([]);
+    const urlParams = new URLSearchParams(window.location.search)
+    const myParams = urlParams.get('search')
     // const [id, SetId]
     // const [articlesgenereaux, setArticlesGenereaux] = useState ([]);
     //const [activeFilter, setActiveFilter] = useState(false)
@@ -136,13 +138,26 @@ export default function Search() {
     };
     
     useEffect(() => {
-        fetch('http://localhost:3000/users/articles')
+        if(myParams == undefined || myParams == ''){
+            fetch('http://localhost:3000/users/articles')
+                .then(response => response.json())
+                .then(data => setResults(data)) 
+                .catch(error => {
+                    console.error('Erreur:', error);
+                    setErreur('Erreur lors de la récupération des articles.');
+                });
+        } else {
+            fetch(`http://localhost:3000/users/search/${myParams}`)
             .then(response => response.json())
-            .then(data => setResults(data)) 
-            .catch(error => {
-                console.error('Erreur:', error);
-                setErreur('Erreur lors de la récupération des articles.');
-            });
+            .then(data => {
+                if(data.result){
+                    const DataOk = sortResults(data.data)
+                    setResults(DataOk)
+                } else {
+                    setErreur(DataOk)
+                }
+            })
+        }
 
     }, []);
       

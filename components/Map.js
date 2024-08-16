@@ -16,6 +16,7 @@ const Input = styled(MuiInput)`
 export default function Map() {
     const router = useRouter()
 
+    const [search, setSearch] = useState('')
     const [value, setValue] = useState(10);
 
     const handleSliderChange = (event, newValue) => {
@@ -61,14 +62,14 @@ export default function Map() {
     const center = [position.latitude, position.longitude]
 
     const handleSearch = () => {
-        router.push('/search')
+        router.push(`/search?search=${search}`)
     }
 
     
     return (
         <div>
             <div className={styles.divSearch}>
-                <input type='text' placeholder='Recherchez un outils' className={styles.search}/>
+                <input type='text' placeholder='Recherchez un outils' className={styles.search} onChange={e => setSearch(e.target.value)}/>
                 <button 
                     className={styles.btnSearch}
                     onClick={() => handleSearch()}
