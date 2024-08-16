@@ -91,6 +91,7 @@
         flex-direction: column;
         justify-content: space-around;
         border-bottom: 1px solid #cacaca;
+        border-left: 1px solid #cacaca;
 
     }
     .articleprice {
@@ -98,6 +99,8 @@
         flex-direction: column;
         align-items: center;
         margin-bottom: 6vh;
+        border-bottom: 1px solid #cacaca;
+        margin-top: 17px;
 
     }
 

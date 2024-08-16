@@ -13,6 +13,7 @@ export default function ProductDetail() {
     const [userData, setUserData] = useState(null);  // Stocker les données utilisateur
     const [selectedArticle, setSelectedArticle] = useState(null);
     const [articleSecond, setArticleSecond] = useState(null);
+    
     useEffect(() => {
         console.log(myParam)
         if (myParam) {
